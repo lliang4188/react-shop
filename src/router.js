@@ -11,8 +11,7 @@ import React from 'react';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 // import {AuthRoute} from './routes/private';
 import asyncComponent from "./components/async/AsyncComponent";
-// import IndexComponent from "./pages/home/index";
-const IndexComponent =asyncComponent(()=> import('./pages/home/index/index'))
+const IndexComponent =asyncComponent(()=> import('./pages/home/home/index'))
 
 export default class  RouterComponent extends React.Component {
   render() {
