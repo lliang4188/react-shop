@@ -8,8 +8,9 @@ exact :完全匹配路由
 Redirect:路由重定向
 */
 import React from 'react';
-import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
+import {HashRouter as Router,Route,Switch, Redirect} from 'react-router-dom';
 // import {AuthRoute} from './routes/private';
+import config from "./assets/js/conf/config";
 import asyncComponent from "./components/async/AsyncComponent";
 const IndexComponent =asyncComponent(()=> import('./pages/home/home/index'))
 
@@ -20,7 +21,8 @@ export default class  RouterComponent extends React.Component {
           <Router>
               <React.Fragment>
                 <Switch>
-                    <Route path="/" exact component={IndexComponent} ></Route>
+                    <Route path={config.path + "home"} component={IndexComponent} ></Route>
+                    <Redirect to={config.path + "/home/index"}></Redirect>
                 </Switch>
               </React.Fragment>
           </Router>

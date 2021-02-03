@@ -15,14 +15,17 @@
 }
 .bottom-list .list-item{
     flex: 1;
-    padding: 0.2rem 0 0.3rem;
+    padding: 0.3rem 0 0.2rem;
     text-align: center;
-    font-size:0.8rem;
+    font-size:0.6rem;
+    color: #333;
+}
+.bottom-list .list-item.active{
+    color: #eb1625;
 }
 .bottom-list .list-item::before {
     font-family: iconfont;
     font-size: 1.2rem;
-    color: #333;
     display: block;
     content: '';
 
