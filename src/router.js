@@ -22,7 +22,7 @@ export default class  RouterComponent extends React.Component {
               <React.Fragment>
                 <Switch>
                     <Route path={config.path + "home"} component={IndexComponent} ></Route>
-                    <Redirect to={config.path + "/home/index"}></Redirect>
+                    <Redirect to={config.path + "home/index"}></Redirect>
                 </Switch>
               </React.Fragment>
           </Router>

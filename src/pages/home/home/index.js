@@ -15,12 +15,10 @@ export default class HomeComponent extends React.Component {
       bMyStyle: false,
     }
   }
-  componentWillUnmount() {
-    this.handleNavStyle(this.state)
-  }
   componentDidMount() {
+    this.handleNavStyle(this.props);
   }
-  componentWillReceiveProps( newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     this.handleNavStyle(newProps);
   }
 
