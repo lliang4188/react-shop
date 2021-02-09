@@ -6,12 +6,14 @@ import Css from '../../../assets/css/home/goods/classify.css';
 import config from '../../../assets/js/conf/config';
 import IScroll from '../../../assets/js/libs/iscroll';
 import {localParam} from '../../../assets/js/utils/util';
+import SearchComponent from "../../../components/search/search";
 const GoodsItems = asyncComponent(()=>import('./items'));
 export default class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
-      aClassify: []
+      aClassify: [],
+      pageStyle:{display:'none'}
     };
     this.myScroll = null;
     this.aTempClassify = [];
@@ -29,7 +31,12 @@ export default class HomeComponent extends React.Component {
   goBack(){
     this.props.history.goBack();
   }
-
+  changeSearch(){
+    this.setState({pageStyle:{display: 'block'}});
+  }
+  getStyle(val) {
+    this.setState({pageStyle: val});
+  }
 
   eventScroll(){
     document.getElementById('J_scroll_menu').addEventListener('touchmove', function (e) { e.preventDefault();},
@@ -95,7 +102,7 @@ export default class HomeComponent extends React.Component {
         <div>
           <div className={Css['search-header']}>
             <div className={Css['back']} onClick={this.goBack.bind(this)}></div>
-            <div className={Css['search']}>请输入宝贝名称</div>
+            <div className={Css['search']} onClick={this.changeSearch.bind(this)}>请输入宝贝名称</div>
           </div>
           <div className={Css['goods-main']}>
             <div className={Css['classify-menu']} id="J_scroll_menu">
@@ -120,6 +127,7 @@ export default class HomeComponent extends React.Component {
               </Switch>
             </div>
           </div>
+          <SearchComponent pageStyle={this.state.pageStyle} childStyle={this.getStyle.bind(this)}></SearchComponent>
         </div>
     )
   }

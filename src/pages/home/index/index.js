@@ -5,6 +5,7 @@ import {request} from "../../../assets/js/libs/request";
 import Swiper from '../../../assets/js/libs/swiper.min';
 import '../../../assets/css/common/swiper.min.css';
 import Css from '../../../assets/css/home/index/index.css';
+import SearchComponent from "../../../components/search/search";
 export default class IndexComponent extends React.Component {
   constructor() {
     super();
@@ -13,8 +14,9 @@ export default class IndexComponent extends React.Component {
       aNav: [],
       aGoods:[],
       aRecoGoods:[],
-      bScroll: false
-    }
+      bScroll: false,
+      pageStyle:{display:'none'}
+    };
     this.bScroll= true;
   }
   componentDidMount() {
@@ -84,12 +86,19 @@ export default class IndexComponent extends React.Component {
   pushPage (pUrl){
     this.props.history.push(config.path+pUrl)
   }
+  changeSearch(){
+    this.setState({pageStyle:{display: 'block'}});
+  }
+  getStyle(val) {
+    this.setState({pageStyle: val});
+  }
+
   render() {
     return (
         <div className={Css['page']}>
           <div className={this.state.bScroll ? Css['search-header']+ ' ' + Css['red-bg']:Css['search-header']}>
             <div className={Css['classify-icon']} onClick={this.pushPage.bind(this, 'goods/classify/items')}></div>
-            <div className={Css['search-wrap']}>
+            <div className={Css['search-wrap']} onClick={this.changeSearch.bind(this)}>
               <i className={Css['search-icon']}></i>
               <div className={Css['search-text']}>请输入宝贝名称</div>
             </div>
@@ -230,7 +239,9 @@ export default class IndexComponent extends React.Component {
                 })
                 :''
             }
+
           </div>
+          <SearchComponent pageStyle={this.state.pageStyle} childStyle={this.getStyle.bind(this)}></SearchComponent>
         </div>
     )
   }

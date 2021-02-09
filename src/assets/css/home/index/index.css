@@ -184,6 +184,7 @@
 }
 .goods-level1-item1 .goods-row-title{
     height: 1rem;
+    line-height: 1rem;
     font-size: 0.7rem;
     overflow: hidden;
     font-weight: bold;
@@ -200,6 +201,7 @@
 }
 .goods-level1-item1 .goods-row-text{
     height: 1rem;
+    line-height: 1rem;
     font-size: 0.6rem;
     color: #7b7f82;
 }
@@ -210,12 +212,14 @@
 }
 .goods-level1-wrap .goods-title{
     height: 1rem;
+    line-height: 1rem;
     font-size: 0.7rem;
     overflow: hidden;
     font-weight: bold;
 }
 .goods-level1-wrap .goods-title2{
     height: 1rem;
+    line-height: 1rem;
     font-size: 0.7rem;
     overflow: hidden;
     font-weight: bold;
@@ -287,6 +291,7 @@
 .goods-list-warp .title{
     text-align: center;
     height: 1rem;
+    line-height: 1rem;
     font-size: 0.7rem;
     overflow: hidden;
     font-weight: bold;
@@ -377,8 +382,8 @@
     object-fit: cover;
 }
 .reco-item-wrap .title{
-    line-height: 1.2rem;
-    height: 2.4rem;
+    line-height: 1rem;
+    height: 2rem;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
