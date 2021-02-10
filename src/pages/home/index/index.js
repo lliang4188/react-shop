@@ -96,6 +96,7 @@ export default class IndexComponent extends React.Component {
   render() {
     return (
         <div className={Css['page']}>
+          <div>
           <div className={this.state.bScroll ? Css['search-header']+ ' ' + Css['red-bg']:Css['search-header']}>
             <div className={Css['classify-icon']} onClick={this.pushPage.bind(this, 'goods/classify/items')}></div>
             <div className={Css['search-wrap']} onClick={this.changeSearch.bind(this)}>
@@ -240,6 +241,7 @@ export default class IndexComponent extends React.Component {
                 :''
             }
 
+          </div>
           </div>
           <SearchComponent pageStyle={this.state.pageStyle} childStyle={this.getStyle.bind(this)}></SearchComponent>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import './search.css';
+import { withRouter } from 'react-router-dom'
 import { Modal } from 'antd-mobile';
 import {request} from "../../assets/js/libs/request";
 import config from "../../assets/js/conf/config";
@@ -23,6 +24,9 @@ class SearchComponent extends React.Component {
       this.setState({bHistory: false})
     }
     this.getHotKeywords();
+  }
+  goPage(url){
+    this.props.history.push(config.path+ url);
   }
   getHotKeywords(){
     request(config.baseUrl+'/api/home/public/hotwords?token='+config.token).then(res=>{
@@ -54,6 +58,7 @@ class SearchComponent extends React.Component {
     localStorage['hk'] = JSON.stringify(this.aKeywords);
     this.props.dispatch(actions.hk.addHistoryKeywords({keywords:this.aKeywords}));
     this.setState({bHistory:true});
+    this.goPage('goods/search?keywords='+this.state.keywords);
   }
   render() {
     return (
@@ -77,7 +82,7 @@ class SearchComponent extends React.Component {
                   this.props.state.hk.keywords != null ?
                     this.props.state.hk.keywords.map((item, index)=> {
                       return (
-                        <div key={index} className="keywords">
+                        <div key={index} className="keywords" onClick={this.goPage.bind(this,'goods/search?keywords='+ item)}>
                           <div className="inner">{item}</div>
                         </div>
                       )
@@ -96,7 +101,7 @@ class SearchComponent extends React.Component {
                 this.state.aHotKeywords !=null ?
                   this.state.aHotKeywords.map((item, index)=>{
                   return (
-                    <div key={index} className="keywords">
+                    <div key={index} className="keywords" onClick={this.goPage.bind(this,'goods/search?keywords='+ item.title)}>
                       <div className="inner">{item.title?item.title:'空'}</div>
                     </div>
                   )
@@ -114,4 +119,4 @@ export default connect((state)=>{
   return{
     state:state
   }
-})(SearchComponent)
+})(withRouter(SearchComponent))

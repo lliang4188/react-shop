@@ -1,16 +1,17 @@
+
 .search-header{
-    height: 2.5rem;
-    padding: 0 0.75rem 0 0.5rem;
+    height: 1rem;
+    padding: 0 0.8rem 0 0.25rem;
     background-color: #fff;
     display: flex;
     align-items: center;
 }
 .search-header .back{
-    width: 1.5rem;
-    height: 1.5rem;
-    font-size: 1.2rem;
-    line-height: 1.5rem;
-    margin-right: 0.5rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    font-size: 0.6rem;
+    line-height: 0.7rem;
+    margin-right: 0.25rem;
 }
 .search-header .back::before{
     font-family: iconfont;
@@ -19,40 +20,40 @@
 .search-header .search{
     width: 100%;
     box-sizing: border-box;
-    height: 1.5rem;
+    height: 0.7rem;
     border: 1px solid #b2b2b2;
     border-radius: 5px;
-    padding: 0 0.5rem;
-    font-size: 0.7rem;
+    padding: 0 0.25rem;
+    font-size: 0.32rem;
     color: #999;
     display: flex;
     align-items: center;
 }
 
 .goods-main{
-    height: calc(100vh - 2.5rem);
+    flex:1;
     display: flex;
-
+    height: calc(100vh - 1rem);
 }
 .classify-menu{
-    width: 4.3rem;
+    width: 2.1rem;
     height: 100%;
     overflow: hidden;
     position: relative;
     z-index: 5;
 }
 .classify-menu .menu-item{
-    height: 2rem;
-    line-height: 2rem;
+    height: 1rem;
+    line-height: 1rem;
     border-bottom: 1px solid #efefef;
     background-color: #fff;
-    font-size: 0.7rem;
+    font-size: 0.32rem;
     text-align: center;
 }
 .classify-menu .menu-item.active{
     color: #d32a4e;
 }
 .goods-content{
-    width: calc(100% - 4.3rem);
+    width: calc(100% - 2.1rem);
     height: 100%;
 }

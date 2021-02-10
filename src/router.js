@@ -9,11 +9,11 @@ Redirect:路由重定向
 */
 import React from 'react';
 import {HashRouter as Router,Route,Switch, Redirect} from 'react-router-dom';
-// import {AuthRoute} from './routes/private';
 import config from "./assets/js/conf/config";
 import asyncComponent from "./components/async/AsyncComponent";
 const IndexComponent =asyncComponent(()=> import('./pages/home/home/index'));
 const GoodsClassify = asyncComponent(() => import('./pages/home/goods/classify'));
+const GoodsSearch = asyncComponent(() => import('./pages/home/goods/search'));
 
 export default class  RouterComponent extends React.Component {
   render() {
@@ -24,6 +24,7 @@ export default class  RouterComponent extends React.Component {
                 <Switch>
                     <Route path={config.path + "home"} component={IndexComponent} ></Route>
                     <Route path={config.path + "goods/classify"} component={GoodsClassify} ></Route>
+                    <Route path={config.path + "goods/search"} component={GoodsSearch} ></Route>
                     <Redirect to={config.path + "home/index"}></Redirect>
                 </Switch>
               </React.Fragment>
