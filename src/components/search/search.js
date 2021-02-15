@@ -1,7 +1,7 @@
 import React from 'react';
 import './search.css';
-import { withRouter } from 'react-router-dom'
-import { Modal } from 'antd-mobile';
+import { withRouter } from 'react-router-dom';
+import { Modal, Toast} from 'antd-mobile';
 import {request} from "../../assets/js/libs/request";
 import config from "../../assets/js/conf/config";
 import {connect} from 'react-redux';
@@ -24,14 +24,23 @@ class SearchComponent extends React.Component {
       this.setState({bHistory: false})
     }
     this.getHotKeywords();
+
   }
-  goPage(url){
-    this.props.history.push(config.path+ url);
+  goPage(url, keywords){
+    if (this.props.isLocal === '1') {
+      this.props.childKeywords(keywords);
+    } else {
+      this.props.history.push(config.path + url);
+
+    }
+
   }
   getHotKeywords(){
     request(config.baseUrl+'/api/home/public/hotwords?token='+config.token).then(res=>{
       if (res.code === 200){
-        this.setState({aHotKeywords: res.data})
+        this.setState({aHotKeywords: res.data});
+      } else {
+        this.setState({aHotKeywords: []});
       }
     });
 
@@ -44,21 +53,26 @@ class SearchComponent extends React.Component {
         localStorage.removeItem('hk');
           this.props.dispatch(actions.hk.addHistoryKeywords({keywords:[]}));
           this.aKeywords = [];
-
         } },
     ]);
   }
-  addKeywords(){
-    for (let i=0; i< this.aKeywords.length; i++) {
-      if (this.aKeywords[i] === this.state.keywords){
-        this.aKeywords.splice(i--, 1);
+  addHistoryKeywords(){
+    let keywords = this.state.keywords || this.props.keywords;
+    if ( this.refs['keywords'].value!=="") {
+      for (let i=0; i< this.aKeywords.length; i++) {
+        if (this.aKeywords[i] === keywords){
+          this.aKeywords.splice(i--, 1);
+        }
       }
+      this.aKeywords.unshift(keywords);
+      localStorage['hk'] = JSON.stringify(this.aKeywords);
+      this.props.dispatch(actions.hk.addHistoryKeywords({keywords:this.aKeywords}));
+      this.setState({bHistory:true});
+      this.goPage('goods/search?keywords='+keywords,keywords);
+    } else {
+      Toast.info('请输入宝贝名称', 2);
     }
-    this.aKeywords.unshift(this.state.keywords);
-    localStorage['hk'] = JSON.stringify(this.aKeywords);
-    this.props.dispatch(actions.hk.addHistoryKeywords({keywords:this.aKeywords}));
-    this.setState({bHistory:true});
-    this.goPage('goods/search?keywords='+this.state.keywords);
+
   }
   render() {
     return (
@@ -67,8 +81,8 @@ class SearchComponent extends React.Component {
             <div className="close" onClick={this.props.childStyle.bind(this,{display:'none'})}>
             </div>
             <div className="search-wrap">
-              <input type="text" className="search" placeholder="请输入宝贝名称" onChange={(e)=>{this.setState({keywords:e.target.value})}}/>
-              <button className="btn-search" onClick={this.addKeywords.bind(this)}></button>
+              <input type="text" className="search" placeholder="请输入宝贝名称" defaultValue={this.props.keywords} onChange={(e)=>{this.setState({keywords:e.target.value})}} ref="keywords"/>
+              <button className="btn-search" onClick={this.addHistoryKeywords.bind(this)}></button>
             </div>
           </div>
           <div className="search-main">
@@ -82,7 +96,7 @@ class SearchComponent extends React.Component {
                   this.props.state.hk.keywords != null ?
                     this.props.state.hk.keywords.map((item, index)=> {
                       return (
-                        <div key={index} className="keywords" onClick={this.goPage.bind(this,'goods/search?keywords='+ item)}>
+                        <div key={index} className="keywords" onClick={this.goPage.bind(this,'goods/search?keywords='+ item,item)}>
                           <div className="inner">{item}</div>
                         </div>
                       )
@@ -101,8 +115,8 @@ class SearchComponent extends React.Component {
                 this.state.aHotKeywords !=null ?
                   this.state.aHotKeywords.map((item, index)=>{
                   return (
-                    <div key={index} className="keywords" onClick={this.goPage.bind(this,'goods/search?keywords='+ item.title)}>
-                      <div className="inner">{item.title?item.title:'空'}</div>
+                    <div key={index} className={ item.title ?  'keywords': 'hide'} onClick={this.goPage.bind(this,'goods/search?keywords='+ item.title)}>
+                      <div className="inner">{item.title}</div>
                     </div>
                   )
 

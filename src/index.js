@@ -1,3 +1,4 @@
+import 'default-passive-events';
 import 'babel-polyfill';
 import 'url-search-params-polyfill';
 import React from 'react';

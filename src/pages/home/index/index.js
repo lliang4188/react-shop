@@ -240,7 +240,6 @@ export default class IndexComponent extends React.Component {
                 })
                 :''
             }
-
           </div>
           </div>
           <SearchComponent pageStyle={this.state.pageStyle} childStyle={this.getStyle.bind(this)}></SearchComponent>
