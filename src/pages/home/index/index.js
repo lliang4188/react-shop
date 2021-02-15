@@ -34,7 +34,7 @@ export default class IndexComponent extends React.Component {
   eventScroll(){
     if (this.bScroll){
       let iScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      if(iScrollTop > 60){
+      if(iScrollTop >= 60){
         this.setState({ bScroll:true})
       } else {
         this.setState({ bScroll:false})
@@ -49,7 +49,8 @@ export default class IndexComponent extends React.Component {
          this.setState({aSwiper:res.data},()=>{
            Swiper = new Swiper('.'+Css['swiper-wrap'], {
              autoplay:3000,
-             pagination: '.swiper-pagination'
+             pagination: '.swiper-pagination',
+             autoplayDisableOnInteraction: false
            })
          })
        }

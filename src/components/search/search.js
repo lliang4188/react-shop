@@ -115,7 +115,7 @@ class SearchComponent extends React.Component {
                 this.state.aHotKeywords !=null ?
                   this.state.aHotKeywords.map((item, index)=>{
                   return (
-                    <div key={index} className={ item.title ?  'keywords': 'hide'} onClick={this.goPage.bind(this,'goods/search?keywords='+ item.title)}>
+                    <div key={index} className={ item.title ?  'keywords': 'hide'} onClick={this.goPage.bind(this,'goods/search?keywords='+ item.title,item.title)}>
                       <div className="inner">{item.title}</div>
                     </div>
                   )
