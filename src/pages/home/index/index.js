@@ -2,10 +2,12 @@ import React from 'react';
 import config from "../../../assets/js/conf/config";
 import {lazyImg} from "../../../assets/js/utils/util";
 import {request} from "../../../assets/js/libs/request";
-import Swiper from '../../../assets/js/libs/swiper.min';
-import '../../../assets/css/common/swiper.min.css';
+import SwiperCore, {Pagination} from 'swiper';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
 import Css from '../../../assets/css/home/index/index.css';
 import SearchComponent from "../../../components/search/search";
+SwiperCore.use([ Pagination]);
 export default class IndexComponent extends React.Component {
   constructor() {
     super();
@@ -47,11 +49,11 @@ export default class IndexComponent extends React.Component {
     request(config.baseUrl+'/api/home/index/slide?token='+config.token).then(res => {
        if (res.code === 200) {
          this.setState({aSwiper:res.data},()=>{
-           Swiper = new Swiper('.'+Css['swiper-wrap'], {
-             autoplay:3000,
-             pagination: '.swiper-pagination',
-             autoplayDisableOnInteraction: false
-           })
+           // Swiper = new Swiper('.'+Css['swiper-wrap'], {
+           //   autoplay:3000,
+           //   pagination: '.swiper-pagination',
+           //   autoplayDisableOnInteraction: false
+           // })
          })
        }
     });
@@ -109,17 +111,25 @@ export default class IndexComponent extends React.Component {
             </div>
           </div>
           <div className={Css['swiper-wrap']}>
-            <div className="swiper-wrapper">
+            <Swiper
+                className="swiper-wrapper"
+                pagination
+            >
               {
-                this.state.aSwiper != null ?
-                this.state.aSwiper.map((item, index)=>{
-                  return (
-                    <div key={index} className="swiper-slide"><a href={item.webs} target="_blank" rel="noopener noreferrer" ><img src={item.image} alt={item.title}/></a></div>
-                  )
-                }) : ''
+                this.state.aSwiper !=null ?
+                    this.state.aSwiper.map((item, index) => {
+                      return (
+                          <SwiperSlide key={index}>
+                            <a href={item.webs} target="_blank" rel="noopener noreferrer">
+                              <img src={item.image} alt={item.title}/>
+
+                            </a>
+                          </SwiperSlide>
+                      )
+                    })
+                    : ''
               }
-            </div>
-            <div className="swiper-pagination"></div>
+            </Swiper>
           </div>
           <div className={Css['quick-nav']}>
             {
