@@ -7,7 +7,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import Css from '../../../assets/css/home/index/index.css';
 import SearchComponent from "../../../components/search/search";
-SwiperCore.use([ Pagination]);
+
 export default class IndexComponent extends React.Component {
   constructor() {
     super();
@@ -49,11 +49,7 @@ export default class IndexComponent extends React.Component {
     request(config.baseUrl+'/api/home/index/slide?token='+config.token).then(res => {
        if (res.code === 200) {
          this.setState({aSwiper:res.data},()=>{
-           // Swiper = new Swiper('.'+Css['swiper-wrap'], {
-           //   autoplay:3000,
-           //   pagination: '.swiper-pagination',
-           //   autoplayDisableOnInteraction: false
-           // })
+           SwiperCore.use([ Pagination]);
          })
        }
     });

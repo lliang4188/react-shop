@@ -14,6 +14,7 @@ import asyncComponent from "./components/async/AsyncComponent";
 const IndexComponent =asyncComponent(()=> import('./pages/home/home/index'));
 const GoodsClassify = asyncComponent(() => import('./pages/home/goods/classify'));
 const GoodsSearch = asyncComponent(() => import('./pages/home/goods/search'));
+const GoodsDetails = asyncComponent(() => import('./pages/home/goods/details'));
 
 export default class  RouterComponent extends React.Component {
   render() {
@@ -25,6 +26,7 @@ export default class  RouterComponent extends React.Component {
                     <Route path={config.path + "home"} component={IndexComponent} ></Route>
                     <Route path={config.path + "goods/classify"} component={GoodsClassify} ></Route>
                     <Route path={config.path + "goods/search"} component={GoodsSearch} ></Route>
+                    <Route path={config.path + "goods/details"} component={GoodsDetails} ></Route>
                     <Redirect to={config.path + "home/index"}></Redirect>
                 </Switch>
               </React.Fragment>
