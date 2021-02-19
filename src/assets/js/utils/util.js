@@ -22,7 +22,14 @@ function localParam(search, hash) {
     hash : fn(hash, new RegExp("([^#=&]+)(=([^&]*))?", "g")) || {}
   };
 }
+function setScrollTop(val=0){
+  setTimeout(()=>{
+    document.body.scrollTop=val;
+    document.documentElement.scrollTop=val;
+  },500);
+}
 export {
   lazyImg,
-  localParam
+  localParam,
+  setScrollTop
 }

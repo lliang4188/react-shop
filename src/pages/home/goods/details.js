@@ -15,26 +15,78 @@ export default class GoodsDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
+      gid:props.location.search != '' ? localParam(props.location.search).search.gid : '',
+      tabStyle: {
+        bItem: true,
+        bContent: false,
+        bReviews: false
+      }
     }
   }
   componentDidMount() {
-
+    this.setTypeStyle(this.props);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-
+    this.setTypeStyle(nextProps);
   }
 
+  goBack(){
+    this.props.history.goBack();
+  }
+  replacePage(url) {
+    this.props.history.replace(config.path+ url)
+  }
+  // 设置选项卡切换样式
+  setTypeStyle(props){
+      switch (props.location.pathname) {
+        case config.path+'goods/details/item':
+          this.setState({
+            tabStyle:{
+              bItem: true,
+              bContent: false,
+              bReviews: false
+            }
+          });
+          break;
+        case config.path+'goods/details/content' :
+          this.setState({
+            tabStyle:{
+              bItem: false,
+              bContent: true,
+              bReviews: false
+            }
+          });
+          break;
+        case config.path+'goods/details/reviews' :
+          this.setState({
+            tabStyle:{
+              bItem: false,
+              bContent: false,
+              bReviews: true
+            }
+          });
+          break;
+        default:
+          break;
+      }
+
+  }
+  componentWillUnmount() {
+    this.setState = (state,callback) => {
+      return;
+    }
+  }
   render() {
     return (
         <div>
           <div className={Css['detail-header']}>
-            <div className={Css['back']}></div>
+            <div className={Css['back']} onClick={this.goBack.bind(this)}></div>
             <div className={Css['detail-nav']}>
-              <div className={Css['nav-ele'] + ' ' + Css['active']}>商品</div>
-              <div className={Css['nav-ele']}>详情</div>
-              <div className={Css['nav-ele']}>评价</div>
+              <div className={this.state.tabStyle.bItem ? Css['nav-ele'] + ' ' + Css['active'] :  Css['nav-ele']} onClick={this.replacePage.bind(this, 'goods/details/item?gid'+ this.state.gid)}>商品</div>
+              <div className={this.state.tabStyle.bContent ? Css['nav-ele'] + ' ' + Css['active'] : Css['nav-ele']} onClick={this.replacePage.bind(this, 'goods/details/content?gid'+ this.state.gid)}>详情</div>
+              <div className={this.state.tabStyle.bReviews ? Css['nav-ele'] + ' ' + Css['active'] : Css['nav-ele']} onClick={this.replacePage.bind(this, 'goods/details/reviews?gid'+ this.state.gid)}>评价</div>
             </div>
-            <div className={Css['icon-cart']}>
+            <div className={Css['icon-cart']} id="cart-icon">
               <div className={Css['spot']}></div>
             </div>
           </div>

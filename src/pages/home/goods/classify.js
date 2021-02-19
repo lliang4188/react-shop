@@ -39,13 +39,17 @@ export default class HomeComponent extends React.Component {
   }
 
   eventScroll(){
-    document.getElementById('J_scroll_menu').addEventListener('touchmove', function (e) { e.preventDefault();},
+    let scrollMenu = this.refs['scroll_menu'];
+    scrollMenu.addEventListener('touchmove', function (e) { e.preventDefault();},
       false);
-    this.myScroll= new IScroll('#J_scroll_menu', {
+    this.myScroll= new IScroll(scrollMenu, {
 
       scrollX : false,
       scrollY : true,
-      preventDefault : false
+      preventDefault : false,
+      disablePointer:true,
+      disableTouch:false,
+      disableMouse:true
     });
   }
 
@@ -76,7 +80,7 @@ export default class HomeComponent extends React.Component {
   }
 
   handleScroll(pIndex){
-    let oScrollClassify = document.getElementById('J_scroll_menu');
+    let oScrollClassify = this.refs['scroll_menu'];
     let iTopHeight = Math.round(parseInt(this.refs['item-'+pIndex].offsetHeight *pIndex));
     let iBottomHeight = oScrollClassify.scrollHeight - iTopHeight;
     let iHalfHeight = Math.round(parseInt(oScrollClassify.offsetHeight))/3;
@@ -97,6 +101,11 @@ export default class HomeComponent extends React.Component {
       }
     }
   }
+  componentWillUnmount() {
+    this.setState = (state,callback) => {
+      return;
+    }
+  }
   render() {
     return (
         <div>
@@ -105,7 +114,7 @@ export default class HomeComponent extends React.Component {
             <div className={Css['search']} onClick={this.changeSearch.bind(this)}>请输入宝贝名称</div>
           </div>
           <div className={Css['goods-main']}>
-            <div className={Css['classify-menu']} id="J_scroll_menu">
+            <div className={Css['classify-menu']} ref="scroll_menu">
               <div>
                 {
                   this.state.aClassify != null ?

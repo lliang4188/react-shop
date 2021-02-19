@@ -19,13 +19,17 @@ export default class HomeComponent extends React.Component {
   }
 
   eventScroll(){
-    document.getElementById('J_scroll_goods').addEventListener('touchmove', function (e) { e.preventDefault();},
+    let  scrollGoods = this.refs['scroll_goods'];
+    scrollGoods.addEventListener('touchmove', function (e) { e.preventDefault();},
       false);
-    this.myScroll= new IScroll('#J_scroll_goods', {
+    this.myScroll= new IScroll( scrollGoods, {
 
       scrollX : false,
       scrollY : true,
-      preventDefault : false
+      preventDefault : false,
+      disablePointer:true,
+      disableTouch:false,
+      disableMouse:true
     });
   }
   getDate(props){
@@ -47,12 +51,18 @@ export default class HomeComponent extends React.Component {
       }
     })
   }
-
-
+  componentWillUnmount() {
+    this.setState = (state,callback) => {
+      return;
+    }
+  }
+  pushPage(url){
+    this.props.history.push(config.path + url);
+  }
 
   render() {
     return (
-      <div className={Css['goods-content-main']} id="J_scroll_goods">
+      <div className={Css['goods-content-main']} ref="scroll_goods">
 
           <div>
             {
@@ -67,7 +77,7 @@ export default class HomeComponent extends React.Component {
                             item.goods != null ?
                               item.goods.map((item2, index2) =>{
                                 return(
-                                  <li key={index2}>
+                                  <li key={index2} onClick={this.pushPage.bind(this,'goods/details/item?gid='+item2.gid)}>
                                     <div className={Css['goods-img']}>
                                      <img src={require("../../../assets/images/common/lazyImg.jpg")} data-echo={item2.image} alt={item2.title}/>
                                     </div>

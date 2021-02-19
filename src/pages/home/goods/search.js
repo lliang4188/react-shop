@@ -60,11 +60,14 @@ export default class GoodsSearch extends React.Component {
     this.aParam = [];
   }
   componentDidMount() {
-    this.myScroll = new IScroll('#J_screen', {
+    this.myScroll = new IScroll(this.refs['screen'], {
       screenX: false,
       scrollY: true,
-      preventDefault: false
-    })
+      preventDefault: false,
+      disablePointer:true,
+      disableTouch:false,
+      disableMouse:true
+    });
 
     this.sKeywords = decodeURIComponent(localParam(this.props.location.search).search.keywords);
     this.setState({sKeywords:this.sKeywords});
@@ -366,6 +369,14 @@ export default class GoodsSearch extends React.Component {
     }
     this.setState({fPrice1:0, fPrice2:0, aClassify:aClassify, aPrice: aPrice, aAttr: aAttr});
   }
+  pushPage(url){
+    this.props.history.push(config.path+ url);
+  }
+  componentWillUnmount() {
+    this.setState = (state,callback) => {
+      return;
+    }
+  }
   render() {
     return (
       <div className={Css['page']}>
@@ -401,7 +412,7 @@ export default class GoodsSearch extends React.Component {
             this.state.aGoods.length > 0 ?
                 this.state.aGoods.map((item, index) => {
                   return (
-                    <div key={index} className={Css['goods-list']}>
+                    <div key={index} className={Css['goods-list']} onClick={this.pushPage.bind(this,'goods/details/item?gid='+ item.gid)}>
                       <div className={Css['image']}>
                         <img src={require("../../../assets/images/common/lazyImg.jpg")} data-echo={item.image} alt={item.title}/>
                       </div>
@@ -417,7 +428,7 @@ export default class GoodsSearch extends React.Component {
           }
         </div>
         <div ref="mask" className={ this.state.maskShow ? Css['mask'] : Css['mask']+ ' hide'} onClick={this.hideScreen.bind(this)}></div>
-        <div ref="screen" id="J_screen" className={Css['screen'] + ' ' + this.state.screenMove }>
+        <div ref="screen" className={Css['screen'] + ' ' + this.state.screenMove }>
           <div>
             <div className={Css['attr-wrap']}>
               <div className={this.state.aClassify.checked ? Css['attr-title-wrap'] : Css['attr-title-wrap'] + ' ' + Css['up']} onClick={this.handleClassify.bind(this)}>

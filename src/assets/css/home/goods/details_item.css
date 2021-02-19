@@ -1,0 +1,316 @@
+.page{
+    margin-top:1.2rem;
+}
+.swiper-wrap{
+    width: 100%;
+    height: 7rem;
+    position: relative;
+    z-index: 1;
+    background-color: red;
+}
+.swiper-wrap img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.goods-ele-main{
+    background-color: #fff;
+    padding:0.3rem;
+}
+.goods-ele-main .goods-title{
+    font-size: 0.28rem;
+
+}
+.goods-ele-main .price{
+    margin-top: 0.2rem;
+    font-size: 0.32rem;
+    color: #f93036;
+}
+.goods-ele-main .sales-wrap{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.2rem;
+    font-size: 0.24rem;
+    color: #999;
+}
+.reviews-main{
+    margin-top: 0.2rem;
+    background-color: #fff;
+    padding:0.2rem 0.3rem 1.7rem;
+}
+.reviews-main .reviews-title{
+    font-size: 0.32rem;
+    color: #7b7f82;
+    font-weight: normal;
+}
+.reviews-wrap{
+    overflow: hidden;
+}
+.reviews-list{
+    padding: 0.2rem 0;
+}
+.reviews-list .uinfo{
+    height: 0.6rem;
+    display: flex;
+    align-items: center;
+}
+.reviews-list .head{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: 0.2rem;
+    background-color: red;
+}
+.reviews-list .head img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    object-position: center;
+}
+.reviews-list .nickname{
+    font-size: 0.28rem;
+}
+.reviews-list .reviews-content{
+    margin-top: 0.1rem;
+    word-break: break-all;
+    font-size: 0.28rem;
+}
+.reviews-list  .reviews-date{
+    font-size: 0.24rem;
+    color: #999;
+    margin-top: 0.1rem;
+}
+.reviews-more{
+    width: 2.44rem;
+    height: 0.56rem;
+    line-height: 0.56rem;
+    border: 1px solid #d50a17;
+    margin: 0.2rem auto 0;
+    border-radius: 5px;
+    text-align: center;;
+}
+.bottom-btn-wrap{
+    width: 100%;
+    display: flex;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+}
+.bottom-btn-wrap .btn{
+    flex:1;
+    background-color: #cc0004;
+}
+.bottom-btn-wrap .btn:first-child{
+    background-color: #fcb40a;
+}
+
+.mask{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top:0;
+    z-index: 99;
+    background-color: rgba(0,0,0,.5);
+}
+.cart-panel{
+    width: 100%;
+    height: 60%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: #f5f5f9;
+    transform: translateY(120%);
+    transition: transform 0.3s;
+    visibility: hidden;
+}
+.cart-panel.up{
+    visibility: visible;
+    transform: translateY(0);
+}
+.cart-panel .goods-info{
+    padding: 0.2rem 0.3rem;
+    position: relative;
+    background-color: #fff;
+    display: flex;
+    border-bottom: 1px solid #efefef;
+}
+.cart-panel .goods-img{
+    width: 0.8rem;
+    height: 0.8rem;
+    background-color: red;
+    margin-right: 0.2rem;
+}
+.cart-panel .goods-img img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    object-position: center;
+}
+.cart-panel .goods-wrap{
+    flex: 1;
+}
+.cart-panel .goods-title{
+    font-size: 0.24rem;
+    padding-right: 0.2rem;
+    font-weight: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.cart-panel .goods-other{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.24rem;
+}
+.cart-panel .price{
+    color: #f93036;
+}
+.cart-panel .goods-code {
+    color: #999;
+}
+
+.cart-panel .attr-wrap{
+    max-height: 4rem;
+    padding: 0 0.3rem;
+    background-color: #fff;
+    overflow-y: scroll;
+    overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
+}
+.cart-panel .attr-list{
+    padding: 0.2rem 0 0;
+}
+.cart-panel .attr-name{
+    font-size: .32rem;
+}
+.cart-panel .val-wrap{
+    padding-top: 0.1rem;
+    margin: 0 -0.08rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+.cart-panel .val-wrap .val{
+    background-color: #efefef;
+    font-size: .32rem;
+    padding: .1rem .2rem;
+    border-radius: 5px;
+    margin: 0 0.08rem 0.16rem;
+}
+.cart-panel .val-wrap .val.active{
+    background-color: #fda208;
+    color: #fff;
+}
+.cart-panel .amount-wrap{
+    padding: 0.2rem 0.3rem;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-panel .amount-input-wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 0.64rem;
+    width: 2rem;
+    border: 1px solid #333;
+    border-radius: 5px;
+
+}
+.cart-panel .amount-input-wrap .btn{
+    width: 0.6rem;
+    line-height: 0.4rem;
+    font-size: 0.32rem;
+    text-align: center;
+}
+.cart-panel .amount-input-wrap .btn.active{
+    color: #ccc;
+}
+.cart-panel .amount-input-wrap .dec{
+    border-right: 1px solid #333;
+}
+.cart-panel .amount-input-wrap .inc {
+    border-left: 1px solid #333;
+}
+.cart-panel .amount-input{
+    flex: 1;
+    height: 0.4rem;
+    line-height: 0.4rem;
+}
+.cart-panel .amount-input input{
+    height: 0.4rem;
+    line-height: 0.4rem;
+    text-align: center;
+    width: 100%;
+}
+.cart-panel .sure-btn{
+    width: 100%;
+    height: .8rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    color: #fff;
+    font-size: .32rem;
+    background-color: #cf0005;
+    text-align: center;
+    line-height: .8rem;
+}
+.cart-panel .close-panel-wrap{
+    width: 0.4rem;
+    height: 1.2rem;
+    position: absolute;
+    right: 0.05rem;
+    top:-1rem;
+    z-index: 2;
+}
+.cart-panel .close-panel-wrap .spot{
+    width: 0.12rem;
+    height: 0.12rem;
+    background-color: #333;
+    border-radius: 100%;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+.cart-panel .close-panel-wrap .line{
+    width: 1px;
+    height: .72rem;
+    background-color: #fff;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: .05rem;
+}
+.cart-panel .close-panel-wrap .close{
+    width: 0.32rem;
+    height: 0.32rem;
+    text-align: center;
+    line-height: 0.32rem;
+    font-size: 0.32rem;
+    color: #fff;
+    position: absolute;
+    top:0.1rem;
+    left:50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    border-radius: 100%;
+    font-family: iconfont;
+}
+.cart-panel .close-panel-wrap .close::before{
+    content: '\e632';
+}

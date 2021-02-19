@@ -27,6 +27,7 @@ class SearchComponent extends React.Component {
 
   }
   goPage(url, keywords){
+
     if (this.props.isLocal === '1') {
       this.props.childKeywords(keywords);
     } else {
@@ -73,6 +74,11 @@ class SearchComponent extends React.Component {
       Toast.info('请输入宝贝名称', 2);
     }
 
+  }
+  componentWillUnmount() {
+    this.setState = (state,callback) => {
+      return;
+    }
   }
   render() {
     return (

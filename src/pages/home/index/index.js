@@ -1,13 +1,13 @@
 import React from 'react';
 import config from "../../../assets/js/conf/config";
-import {lazyImg} from "../../../assets/js/utils/util";
+import {lazyImg,setScrollTop} from "../../../assets/js/utils/util";
 import {request} from "../../../assets/js/libs/request";
 import SwiperCore, {Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import Css from '../../../assets/css/home/index/index.css';
 import SearchComponent from "../../../components/search/search";
-
+SwiperCore.use([ Pagination]);
 export default class IndexComponent extends React.Component {
   constructor() {
     super();
@@ -27,15 +27,20 @@ export default class IndexComponent extends React.Component {
     this.getGoodsLevel();
     this.getReco();
     window.addEventListener('scroll',this.eventScroll.bind(this),false);
+    setScrollTop(global.scrollTop.index);
   }
   componentWillUnmount() {
     this.bScroll =false;
     window.removeEventListener('scroll',this.eventScroll.bind(this));
+    this.setState = (state,callback) => {
+      return;
+    }
   }
 
   eventScroll(){
     if (this.bScroll){
       let iScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      global.scrollTop.index = iScrollTop;
       if(iScrollTop >= 60){
         this.setState({ bScroll:true})
       } else {
@@ -48,9 +53,7 @@ export default class IndexComponent extends React.Component {
   getSwiper(){
     request(config.baseUrl+'/api/home/index/slide?token='+config.token).then(res => {
        if (res.code === 200) {
-         this.setState({aSwiper:res.data},()=>{
-           SwiperCore.use([ Pagination]);
-         })
+         this.setState({aSwiper:res.data})
        }
     });
   }
@@ -132,7 +135,7 @@ export default class IndexComponent extends React.Component {
               this.state.aNav != null ?
               this.state.aNav.map((item, index)=> {
                 return (
-                  <div key={index} className={Css['item']}>{item.title}</div>
+                  <div key={index} className={Css['item']} onClick={this.pushPage.bind(this,'goods/classify/items?cid='+item.cid)}>{item.title}</div>
                 )
               }) : ''
             }
@@ -147,7 +150,7 @@ export default class IndexComponent extends React.Component {
                       <div className={Css['goods-level1-wrap']}>
                         {
                           item.items != null ?
-                                <div className={Css['goods-level1-item0']}>
+                                <div className={Css['goods-level1-item0']} onClick={this.pushPage.bind(this, 'goods/details/item?gid='+(item.items[0].gid != null ? item.items[0].gid: ''))}>
                                   <div className={Css['goods-title']}>{item.items[0].title}</div>
                                   <div className={Css['goods-info']}>
                                     <span className={Css['goods-text']}>精品打折</span>
@@ -164,7 +167,7 @@ export default class IndexComponent extends React.Component {
                             item.items != null ?
                               item.items.slice(1,3).map((item2, index2)=>{
                                 return (
-                                  <div key={index2} className={Css['goods-row']}>
+                                  <div key={index2} className={Css['goods-row']} onClick={this.pushPage.bind(this, 'goods/details/item?gid='+item2.gid)}>
                                     <div className={Css['goods-row-info']}>
                                       <div className={Css['goods-row-title']}>{item2.title}</div>
                                       <div className={Css['goods-row-text']}>品质精选</div>
@@ -186,7 +189,7 @@ export default class IndexComponent extends React.Component {
                           item.items != null ?
                             item.items.slice(0,2).map((item2,index2)=>{
                               return (
-                                <div key={index2} className={Css['goods-level1-item0']}>
+                                <div key={index2} className={Css['goods-level1-item0']} onClick={this.pushPage.bind(this, 'goods/details/item?gid='+item2.gid)}>
                                   <div className={Css['goods-title2']}>{item2.title}</div>
                                   <div className={Css['goods-text2']}>精品打折</div>
                                   <div className={Css['goods-img2']}>
@@ -205,7 +208,7 @@ export default class IndexComponent extends React.Component {
                         item.items != null ?
                           item.items.slice(index%2===1?2:3).map((item2,index2)=> {
                               return (
-                                <div key={index2} className={Css['goods-list']}>
+                                <div key={index2} className={Css['goods-list']} onClick={this.pushPage.bind(this, 'goods/details/item?gid='+item2.gid)}>
                                   <div className={Css['title']}>{item2.title}</div>
                                   <div className={Css['image']}>
                                     <img src={item2.image} alt={item2.title}/>
@@ -234,7 +237,7 @@ export default class IndexComponent extends React.Component {
               this.state.aRecoGoods != null ?
                 this.state.aRecoGoods.map((item2, index2)=>{
                   return(
-                    <div key={index2} className={Css['reco-item']}>
+                    <div key={index2} className={Css['reco-item']} onClick={this.pushPage.bind(this, 'goods/details/item?gid='+item2.gid)}>
                       <div className={Css['inner']}>
                         <div className={Css['image']}>
                           <img src={require('../../../assets/images/common/lazyImg.jpg')} data-echo={item2.image} alt={item2.title}/>

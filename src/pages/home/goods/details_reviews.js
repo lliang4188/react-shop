@@ -1,5 +1,5 @@
 import React from 'react';
-import Css from '../../../assets/css/home/goods/details.css';
+import Css from '../../../assets/css/home/goods/details_item.css';
 import {request} from "../../../assets/js/libs/request";
 import {lazyImg,localParam} from '../../../assets/js/utils/util';
 import config from "../../../assets/js/conf/config";
@@ -15,10 +15,14 @@ export default class DetailsReviews extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
 
   }
-
+  componentWillUnmount() {
+    this.setState = (state,callback) => {
+      return;
+    }
+  }
   render() {
     return (
-        <div>
+        <div className={Css['page']}>
           商品评价
         </div>
 
