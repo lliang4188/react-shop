@@ -6,7 +6,7 @@
     height: 7rem;
     position: relative;
     z-index: 1;
-    background-color: red;
+    background-color:#f5f5f9;
 }
 .swiper-wrap img{
     width: 100%;
@@ -61,7 +61,7 @@
     border-radius: 100%;
     overflow: hidden;
     margin-right: 0.2rem;
-    background-color: red;
+    background-color: #f5f5f9;
 }
 .reviews-list .head img{
     width: 100%;
@@ -314,3 +314,10 @@
 .cart-panel .close-panel-wrap .close::before{
     content: '\e632';
 }
+.content-wrap{
+    background-color: #fff;
+    padding: 0.3rem;
+    font-size: 0.32rem;
+    line-height: 1.5;
+}
+

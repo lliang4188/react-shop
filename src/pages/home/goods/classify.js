@@ -41,7 +41,7 @@ export default class HomeComponent extends React.Component {
   eventScroll(){
     let scrollMenu = this.refs['scroll_menu'];
     scrollMenu.addEventListener('touchmove', function (e) { e.preventDefault();},
-      false);
+        { passive: false });
     this.myScroll= new IScroll(scrollMenu, {
 
       scrollX : false,

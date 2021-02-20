@@ -60,7 +60,7 @@ export default class DetailsItem extends React.Component {
   // 获取商品规格属性
   getGoodsAttr(){
     let sUrl = config.baseUrl+'/api/home/goods/info?gid='+ this.state.gid +'&type=spec&token='+config.token;
-    request(sUrl).then((res)=>{
+    request(sUrl).then(res =>{
       if(res.code === 200){
         this.setState({aAttr:res.data});
       }
@@ -69,7 +69,7 @@ export default class DetailsItem extends React.Component {
   // 获取商品评价
   getReviews(){
     let sUrl = config.baseUrl+ '/api/home/reviews/index?gid='+ this.state.gid +'&token='+config.token+'&page=1';
-    request(sUrl).then((res)=>{
+    request(sUrl).then(res =>{
       if(res.code === 200){
           this.setState({aReviews:res.data,iReviewTotal: res.pageinfo.total},()=>{
             lazyImg();
