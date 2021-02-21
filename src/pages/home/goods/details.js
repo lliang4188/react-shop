@@ -34,6 +34,9 @@ export default class GoodsDetails extends React.Component {
   replacePage(url) {
     this.props.history.replace(config.path+ url)
   }
+  pushPage(url) {
+    this.props.history.push(config.path+ url)
+  }
   // 设置选项卡切换样式
   setTypeStyle(props){
       switch (props.location.pathname) {
@@ -84,7 +87,7 @@ export default class GoodsDetails extends React.Component {
               <div className={this.state.tabStyle.bContent ? Css['nav-ele'] + ' ' + Css['active'] : Css['nav-ele']} onClick={this.replacePage.bind(this, 'goods/details/content?gid='+ this.state.gid)}>详情</div>
               <div className={this.state.tabStyle.bReviews ? Css['nav-ele'] + ' ' + Css['active'] : Css['nav-ele']} onClick={this.replacePage.bind(this, 'goods/details/reviews?gid='+ this.state.gid)}>评价</div>
             </div>
-            <div className={Css['icon-cart']} id="cart-icon">
+            <div className={Css['icon-cart']} onClick={this.pushPage.bind(this,'home/cart')} id="cart-icon">
               <div className={Css['spot']}></div>
             </div>
           </div>

@@ -9,8 +9,10 @@ import TweenMax from '../../../assets/js/libs/TweenMax';
 import {lazyImg,localParam,setScrollTop} from '../../../assets/js/utils/util';
 import config from "../../../assets/js/conf/config";
 import 'swiper/swiper-bundle.min.css';
+import {connect} from 'react-redux';
+import actions from '../../../actions';
 SwiperCore.use([ Pagination]);
-export default class DetailsItem extends React.Component {
+class DetailsItem extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
@@ -37,7 +39,6 @@ export default class DetailsItem extends React.Component {
     this.getReviews();
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps.props);
   }
   replacePage(url) {
     this.props.history.replace(config.path+ url)
@@ -140,6 +141,41 @@ export default class DetailsItem extends React.Component {
         TweenMax.to(oCloneImg, 1, {bezier:[{x:srcImgX,y:-100},{x:srcImgX+30, y:-100},{x:oCartIcon.offsetLeft, y:-cloneY}],onComplete:()=>{
             oCloneImg.remove();
             this.bMove = false;
+            // 将商品添加到redux
+            let aAttr=[], aParam = [];
+            if (this.state.aAttr.length > 0) {
+              for (let key in this.state.aAttr){
+               if( this.state.aAttr[key].values.length >0 ) {
+                 aParam = [];
+                 for (let key2 in this.state.aAttr[key].values){
+                   if(this.state.aAttr[key].values[key2].checked) {
+                     aParam.push({
+                       paramid:this.state.aAttr[key].values[key2].vid,
+                       title: this.state.aAttr[key].values[key2].value
+                     })
+                   }
+
+                 }
+
+               }
+               aAttr.push({
+                  attrid: this.state.aAttr[key].attrid,
+                  title: this.state.aAttr[key].title,
+                  param: aParam
+                });
+              }
+            }
+            this.props.dispatch(actions.cart.addCart({
+              gid:this.state.gid,
+              title: this.state.aTitle,
+              amount: this.state.iAmount,
+              price: this.state.aPrice,
+              img: this.state.aSlide[0],
+              checked: true,
+              freight: this.state.aFreight,
+              attrs:aAttr
+            }));
+
           }});
         TweenMax.to(oCloneImg,0.2,{rotation:360, repeat:-1});
       }
@@ -309,3 +345,8 @@ export default class DetailsItem extends React.Component {
     )
   }
 }
+export default connect((state)=>{
+  return{
+    state:state
+  }
+})(DetailsItem)

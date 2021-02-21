@@ -23,7 +23,7 @@ export default class HomeComponent extends React.Component {
   }
 
   goPage (pUrl) {
-    this.props.history.replace(config.path + pUrl);
+    this.props.history.push(config.path + pUrl);
   }
   handleNavStyle(props) {
     switch (props.location.pathname) {

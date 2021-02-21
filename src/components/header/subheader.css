@@ -1,0 +1,35 @@
+.sub-header{
+    height: 1rem;
+    background-color: #fff;
+    position: fixed;
+    left: 0;
+    top:0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 10;
+    padding: 0 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #efefef;
+}
+.sub-header .back{
+    width: 0.6rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    font-size: 0.6rem;
+    text-align: center;
+    font-family: iconfont;
+}
+.sub-header .back::before{
+    content: '\e60a';
+}
+.sub-header .title{
+    font-size: 0.32rem;
+    font-weight: normal;
+    flex: 1;
+    text-align: center;
+}
+.sub-header .right-btn{
+    font-size: 0.32rem;
+}

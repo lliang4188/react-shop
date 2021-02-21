@@ -11,8 +11,8 @@ export default class DetailsReviews extends React.Component {
       gid:props.location.search !== '' ? localParam(props.location.search).search.gid : '',
       aReviews:[],
       iReviewTotal: 0
-    }
-    this.oUpRefresh =null;
+    };
+    this.oUpRefresh = null;
     this.curPage= 1;
     this.maxPage = 0;
     this.offsetBottom = 100;
@@ -87,7 +87,7 @@ export default class DetailsReviews extends React.Component {
                             </div>
                         )
                       })
-                      :''
+                      :<div className="no-data">没有相关评价~~</div>
                 }
 
               </div>
