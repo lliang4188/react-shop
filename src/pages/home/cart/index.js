@@ -19,6 +19,7 @@ class CartIndex extends React.Component {
   delItem(index){
     if (this.props.state.cart.aCartData.length > 0) {
       this.props.dispatch(actions.cart.delItem({index:index}));
+      this.isAllChecked();
     }
   }
   // 选择商品
@@ -42,6 +43,8 @@ class CartIndex extends React.Component {
           this.setState({bAllChecked:true});
         }
       }
+    } else {
+      this.setState({bAllChecked:false});
     }
   }
   // 点击全选
@@ -49,6 +52,35 @@ class CartIndex extends React.Component {
     if (this.props.state.cart.aCartData.length > 0){
       this.setState({bAllChecked:checked});
       this.props.dispatch(actions.cart.setAllChecked({checked:checked}));
+    }
+  }
+  // 增加数量
+  incAmount(index) {
+    if (this.props.state.cart.aCartData.length > 0) {
+      if (this.props.state.cart.aCartData[index].checked) {
+        this.props.dispatch(actions.cart.incAmount({index:index}));
+      }
+    }
+  }
+  // 减少数量
+  decAmount(index) {
+    if (this.props.state.cart.aCartData.length > 0) {
+      if (this.props.state.cart.aCartData[index].checked) {
+        this.props.dispatch(actions.cart.decAmount({index:index}));
+      }
+    }
+  }
+  // 改变数量
+  changeAmount(e, index){
+    if (this.props.state.cart.aCartData.length > 0) {
+      let iAmount = 1;
+      if(e.target.value !== ''){
+        iAmount = e.target.value.replace(/[a-zA-Z]|[\u4e00-\u9fa5]|[#|*|,|+|;|.]/g,'');
+        if (iAmount === '') {
+          iAmount = 1;
+        }
+      }
+      this.props.dispatch(actions.cart.changeAmount({amount:iAmount, index:index}))
     }
   }
   componentWillUnmount() {
@@ -93,24 +125,24 @@ class CartIndex extends React.Component {
                                   </span>
                                 )
                               })
-                              :''
+                                : ''
                           }
                         </div>
                         <div className={Css['buy-wrap']}>
                           <span className={Css['price']}>&yen;{item.price}</span>
                           <div className={Css['amount-input-wrap']}>
-                            <div className={Css['btn']+ ' ' + Css['dec']+ ' ' + Css['active']}>-</div>
+                            <div className={this.props.state.cart.aCartData[index].amount >1 ? Css['btn']+ ' ' + Css['dec'] :Css['btn']+ ' ' + Css['dec']+ ' ' + Css['active']} onClick={this.decAmount.bind(this, index)}>-</div>
                             <div className={Css['amount-input']}>
-                              <input type="tel" defaultValue={item.amount}/>
+                              <input type="tel" value={item.amount} onChange={(e) =>{this.changeAmount(e,index)}}/>
                             </div>
-                            <div className={Css['btn']+ ' ' + Css['inc']}>+</div>
+                            <div className={Css['btn']+ ' ' + Css['inc']} onClick={this.incAmount.bind(this, index)}>+</div>
                           </div>
                         </div>
                       </div>
                     </div>
                   )
                 })
-                :''
+                :<div className="no-data">您还未选购任何商品~~</div>
             }
 
           </div>
@@ -120,7 +152,7 @@ class CartIndex extends React.Component {
               <span className={Css['select-text']}>全选</span>
             </div>
             <div className={Css['total']}>运费：<span>&yen;10</span>合计：<span>&yen;{this.props.state.cart.total}</span></div>
-            <div className={Css['order-btn']}>去结算</div>
+            <div className={this.props.state.cart.total > 0 ? Css['order-btn'] : Css['order-btn'] + ' ' + Css['disable']}>去结算</div>
 
           </div>
         </div>

@@ -13,8 +13,17 @@ function cartReducer(state = cartData, action) {
     case 'checkItem':
       checkItem(state, action.data);
       return Object.assign({}, state, action);
-    case 'setAllChecked':
+    case 'allItem':
       setAllChecked(state, action.data);
+      return Object.assign({}, state, action);
+    case 'incAmount':
+      incAmount(state, action.data);
+      return Object.assign({}, state, action);
+    case 'decAmount':
+      decAmount(state, action.data);
+      return Object.assign({}, state, action);
+    case 'changeAmount':
+      changeAmount(state, action.data);
       return Object.assign({}, state, action);
     default:
       return state;
@@ -44,8 +53,8 @@ function addCart(state, action) {
 // 删除商品
 function delItem(state,action) {
   state.aCartData.splice(action.index,1);
-  localStorage['cartData']=JSON.stringify(state.aCartData);
   setTotal(state);
+  localStorage['cartData']=JSON.stringify(state.aCartData);
 }
 // 选择商品
 function checkItem(state,action) {
@@ -71,16 +80,36 @@ function setAllChecked(state,action) {
   localStorage['cartData']=JSON.stringify(state.aCartData);
 }
 
-// 重新计算
+// 增加商品数量
+function incAmount(state,action) {
+  state.aCartData[action.index].amount += 1;
+  setTotal(state);
+  localStorage['cartData']=JSON.stringify(state.aCartData);
+}
+
+// 减少商品数量
+function decAmount(state, action) {
+  if (state.aCartData[action.index].amount > 1){
+    state.aCartData[action.index].amount -=1;
+    setTotal(state);
+    localStorage['cartData']=JSON.stringify(state.aCartData);
+  }
+}
+// 改变数量
+function changeAmount(state, action) {
+  state.aCartData[action.index].amount = action.amount;
+  setTotal(state);
+  localStorage['cartData']=JSON.stringify(state.aCartData);
+}
+// 重新计算总价
 function setTotal(state) {
   let total = 0;
   for (let key in state.aCartData){
     if (state.aCartData[key].checked) {
       total+=parseFloat(state.aCartData[key].price)*parseInt(state.aCartData[key].amount);
     }
-    state.total = parseFloat(total.toFixed(2));
-
   }
+  state.total = parseFloat(total.toFixed(2));
   localStorage['total'] = state.total;
 }
 

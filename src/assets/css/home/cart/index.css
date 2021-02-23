@@ -160,10 +160,16 @@
 .bottom-nav .total span{
     color: #cc0004;
 }
+.bottom-nav .total span:first-child{
+    margin-right: 0.2rem;
+}
 .bottom-nav .order-btn{
     line-height: 1.25rem;
     width:1.8rem;
     background-color: #cc0004;
     color: #fff;
     text-align: center;
+}
+.bottom-nav .disable{
+    background-color: #ccc;
 }

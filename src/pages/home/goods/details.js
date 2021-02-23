@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 import asyncComponent from "../../../components/async/AsyncComponent";
 import Css from '../../../assets/css/home/goods/details.css';
 import {localParam} from '../../../assets/js/utils/util';
@@ -9,7 +10,7 @@ const DetailsItem = asyncComponent(()=> import('./details_item'));
 const DetailContent = asyncComponent(()=> import('./details_content'));
 const DetailReviews = asyncComponent(()=> import('./details_reviews'));
 
-export default class GoodsDetails extends React.Component {
+class GoodsDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
@@ -88,7 +89,7 @@ export default class GoodsDetails extends React.Component {
               <div className={this.state.tabStyle.bReviews ? Css['nav-ele'] + ' ' + Css['active'] : Css['nav-ele']} onClick={this.replacePage.bind(this, 'goods/details/reviews?gid='+ this.state.gid)}>评价</div>
             </div>
             <div className={Css['icon-cart']} onClick={this.pushPage.bind(this,'home/cart')} id="cart-icon">
-              <div className={Css['spot']}></div>
+              <div className={this.props.state.cart.aCartData.length>0 ? Css['spot'] :  Css['spot'] + ' hide'}></div>
             </div>
           </div>
           <div>
@@ -104,3 +105,8 @@ export default class GoodsDetails extends React.Component {
     )
   }
 }
+export default connect((state)=>{
+  return{
+    state:state
+  }
+})(GoodsDetails )

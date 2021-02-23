@@ -19,6 +19,17 @@
     text-align: center;
     font-size:0.28rem;
     color: #333;
+    position: relative;
+}
+.bottom-list .spot{
+    display: block;
+    width: 0.15rem;
+    height: 0.15rem;
+    border-radius: 100%;
+    background-color: #eb1625;
+    position: absolute;
+    left: 61%;
+    top: 0.2rem;
 }
 .bottom-list .list-item.active{
     color: #eb1625;

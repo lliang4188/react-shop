@@ -122,7 +122,17 @@ class DetailsItem extends React.Component {
       this.setState({iAmount: --iAmount});
     }
   }
-
+  // 改变数量
+  changeAmount(e) {
+    let iAmount = 1;
+    if(e.target.value !== ''){
+      iAmount = e.target.value.replace(/[a-zA-Z]|[\u4e00-\u9fa5]|[#|*|,|+|;|.]/g,'');
+      if (iAmount === '') {
+        iAmount = 1
+      }
+    }
+    this.setState({iAmount:iAmount});
+  }
   // 加入购物车
   addCart() {
     this.checkAttrVal(()=>{
@@ -168,7 +178,7 @@ class DetailsItem extends React.Component {
             this.props.dispatch(actions.cart.addCart({
               gid:this.state.gid,
               title: this.state.aTitle,
-              amount: this.state.iAmount,
+              amount: parseInt(this.state.iAmount),
               price: this.state.aPrice,
               img: this.state.aSlide[0],
               checked: true,
@@ -332,7 +342,7 @@ class DetailsItem extends React.Component {
                 <div className={this.state.iAmount <= 1 ? Css['btn'] + ' ' + Css['dec'] + ' ' + Css['active'] : Css['btn'] + ' ' + Css['dec']} onClick={this.decAmount.bind(this)}>-</div>
                 <div className={Css['amount-input']}>
                   <input type="tel" value={this.state.iAmount} onChange={(e)=>{
-                    this.setState({iAmount: e.target.value.replace(/[a-zA-Z]|[\u4e00-\u9fa5]|[#|*|,|+|;|.]/g,'')})
+                    this.changeAmount(e)
                   }}/>
                 </div>
                 <div className={Css['btn'] + ' ' + Css['inc']} onClick={this.incAmount.bind(this)}>+</div>

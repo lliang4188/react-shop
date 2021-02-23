@@ -1,12 +1,13 @@
 import React from 'react';
 import {Route,Switch} from 'react-router-dom';
+import {connect} from 'react-redux';
 import asyncComponent from "../../../components/async/AsyncComponent";
 import Css from '../../../assets/css/home/home/index.css';
 import config from "../../../assets/js/conf/config";
 const IndexComponent = asyncComponent(()=>import('../index/index'));
 const CartIndex = asyncComponent(()=>import('../cart/index'));
 const UserIndex = asyncComponent(()=> import('../../user/index/index'));
-export default class HomeComponent extends React.Component {
+class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
@@ -67,7 +68,7 @@ export default class HomeComponent extends React.Component {
           <div className={Css['bottom-nav']}>
             <div className={Css['bottom-list']}>
               <span className={this.state.bHomeStyle ? Css['list-item']+ ' ' + Css['active']:Css['list-item']} onClick={this.goPage.bind(this,'home/index')}>首页</span>
-              <span className={this.state.bCartStyle ? Css['list-item']+ ' ' + Css['active']:Css['list-item']} onClick={this.goPage.bind(this,'home/cart')}>购物车</span>
+              <span className={this.state.bCartStyle ? Css['list-item']+ ' ' + Css['active']:Css['list-item']} onClick={this.goPage.bind(this,'home/cart')}>购物车<i className={this.props.state.cart.aCartData.length>0 ? Css['spot'] : Css['spot'] + ' hide'}></i></span>
               <span className={this.state.bMyStyle ? Css['list-item']+ ' ' + Css['active']:Css['list-item']} onClick={this.goPage.bind(this,'home/my')}>我的</span>
             </div>
           </div>
@@ -75,3 +76,8 @@ export default class HomeComponent extends React.Component {
     )
   }
 }
+export default connect((state)=>{
+  return{
+    state:state
+  }
+})(HomeComponent )
