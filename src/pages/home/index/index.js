@@ -106,7 +106,7 @@ export default class IndexComponent extends React.Component {
               <div className={Css['search-text']}>请输入宝贝名称</div>
             </div>
             <div className={Css['login-wrap']}>
-              <span>登录</span>
+              <span onClick={this.pushPage.bind(this, 'login/index')}>登录</span>
             </div>
           </div>
           <div className={Css['swiper-wrap']}>

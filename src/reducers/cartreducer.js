@@ -1,6 +1,7 @@
 let cartData = {
   aCartData:localStorage['cartData'] !== undefined ? JSON.parse(localStorage['cartData']) : [],
-  total: localStorage['total'] !== undefined ? parseFloat(localStorage['total']) : 0
+  total: localStorage['total'] !== undefined ? parseFloat(localStorage['total']) : 0,
+  freight: 0
 };
 function cartReducer(state = cartData, action) {
   switch (action.type) {
@@ -29,13 +30,14 @@ function cartReducer(state = cartData, action) {
       return state;
   }
 }
+// 添加商品
 function addCart(state, action) {
   let bSameItem = false;
   if (state.aCartData.length > 0){
-    // 有相同的商品数量加1
+    // 有相同的商品数量
     for( let key in state.aCartData){
       if (state.aCartData[key].gid === action.gid && JSON.stringify(state.aCartData[key].attrs) === JSON.stringify(action.attrs)){
-        state.aCartData[key].amount += 1;
+        state.aCartData[key].amount += action.amount;
         bSameItem = true;
         break;
       }
@@ -47,13 +49,14 @@ function addCart(state, action) {
   }
 
   setTotal(state);
-
+  setFreight(state);
   localStorage['cartData']=JSON.stringify(state.aCartData);
 }
 // 删除商品
 function delItem(state,action) {
   state.aCartData.splice(action.index,1);
   setTotal(state);
+  setFreight(state);
   localStorage['cartData']=JSON.stringify(state.aCartData);
 }
 // 选择商品
@@ -61,7 +64,8 @@ function checkItem(state,action) {
 
   state.aCartData[action.index].checked = action.checked;
   setTotal(state);
-  localStorage['total'] = state.total;
+  setFreight(state);
+  localStorage['cartData']=JSON.stringify(state.aCartData);
 }
 
 // 全选
@@ -77,6 +81,7 @@ function setAllChecked(state,action) {
   }
 
   setTotal(state);
+  setFreight(state);
   localStorage['cartData']=JSON.stringify(state.aCartData);
 }
 
@@ -111,6 +116,17 @@ function setTotal(state) {
   }
   state.total = parseFloat(total.toFixed(2));
   localStorage['total'] = state.total;
+}
+// 计算运费
+function setFreight(state) {
+  let aFreight = [];
+  for (let key in state.aCartData) {
+    if (state.aCartData[key].checked) {
+      aFreight.push(state.aCartData[key].freight);
+    }
+  }
+  state.freight = Math.max.apply(null, aFreight);
+  localStorage['freight']=state.freight;
 }
 
 export default cartReducer;

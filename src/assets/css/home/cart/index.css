@@ -128,16 +128,17 @@
 .bottom-nav .select-wrap{
     overflow: hidden;
     display: flex;
+    line-height: 0.4rem;
 }
 .bottom-nav .select-btn{
     width: 0.4rem;
     height: 0.4rem;
-    line-height: 0.4rem;
+
     font-size: 0.4rem;
     text-align: center;
     font-family: iconfont;
     color: #999;
-    margin-right: 0.2rem;
+    margin-right: 0.1rem;
 }
 .bottom-nav .select-btn::before{
     content: '\e6d7';

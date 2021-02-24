@@ -20,6 +20,7 @@ class CartIndex extends React.Component {
     if (this.props.state.cart.aCartData.length > 0) {
       this.props.dispatch(actions.cart.delItem({index:index}));
       this.isAllChecked();
+
     }
   }
   // 选择商品
@@ -151,7 +152,7 @@ class CartIndex extends React.Component {
               <div className={this.state.bAllChecked ? Css['select-btn']+ ' ' +Css['active']: Css['select-btn']} ></div>
               <span className={Css['select-text']}>全选</span>
             </div>
-            <div className={Css['total']}>运费：<span>&yen;10</span>合计：<span>&yen;{this.props.state.cart.total}</span></div>
+            <div className={Css['total']}>运费：<span>&yen;{this.props.state.cart.freight === -Infinity ? 0 :this.props.state.cart.freight}</span>合计：<span>&yen;{this.props.state.cart.total}</span></div>
             <div className={this.props.state.cart.total > 0 ? Css['order-btn'] : Css['order-btn'] + ' ' + Css['disable']}>去结算</div>
 
           </div>

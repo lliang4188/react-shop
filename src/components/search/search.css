@@ -20,10 +20,10 @@
     height: 0.6rem;
     color: #666;
     line-height: 0.6rem;
-    font-size: 0.6rem;
+    font-size: 0.48rem;
     text-align: center;
     font-family: iconfont;
-    margin-right: 0.5rem;
+    margin-right: 0.2rem;
 }
 .search-page .search-header .close::before{
     content: '\e60a';
