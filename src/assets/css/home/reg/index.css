@@ -40,6 +40,13 @@
     margin-left: 0.2rem;
     font-size: 0.28rem;
     border-radius: 2px;
+    box-sizing: border-box;
+    border: 1px solid #eaeaea;
+}
+.main-list .btn-code.success{
+    border-color: #eb1625;
+    background-color: #fff;
+    color: #eb1625;
 }
 .password-item{
     display: flex;
