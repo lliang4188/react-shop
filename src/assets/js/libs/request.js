@@ -2,7 +2,10 @@ import ReactDom from 'react-dom';
 let onLoad = ReactDom.findDOMNode(document.getElementById('page-load'));
 function request (pUrl, pType= 'GET'.toLocaleLowerCase(), data={}) {
   showLoad();
-  let config={}, headers={},params='';
+
+  let config = {},// eslint-disable-line no-unused-vars
+      headers={},
+      params='';
   if (pType === 'get'.toLocaleLowerCase()) {
     config = {
       method: pType
@@ -10,7 +13,7 @@ function request (pUrl, pType= 'GET'.toLocaleLowerCase(), data={}) {
   } else {
     headers = {
       'Content-Type':'application/x-www-form-urlencoded'
-    }
+    };
     if (data instanceof Object) {
       for (let key in data){
         params+= `&${key}=${encodeURIComponent(data[key])}`;

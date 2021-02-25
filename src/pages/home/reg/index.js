@@ -18,6 +18,9 @@ export default class RegIndex extends React.Component {
     this.timer = null;
     this.bSendCode = true;
   }
+  componentDidMount() {
+  }
+
   componentWillUnmount() {
     clearInterval(this.timer);
     this.setState = (state,callback) => {
@@ -64,6 +67,10 @@ export default class RegIndex extends React.Component {
       Toast.info('请输入正确的手机号',2);
       return false;
     }
+    this.isSameCellphone((data)=>{
+      console.log(this.state.sCellphone);
+      console.log(data);
+    });
     if(this.state.sCode.match(/^\s*$/)) {
       Toast.info('请输入短信验证码',2);
       return false;
@@ -72,6 +79,13 @@ export default class RegIndex extends React.Component {
       Toast.info('请输入密码',2);
       return false;
     }
+  }
+  // 检测手机号是否注册
+  isSameCellphone(callback){
+    let sUrl = config.baseUrl+'/api/home/user/isreg?token='+ config.token;
+    request(sUrl, 'post',{username:this.state.sCellphone}).then(res =>{
+      callback(res);
+    })
   }
   render() {
     return (
