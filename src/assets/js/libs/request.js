@@ -1,9 +1,9 @@
 import ReactDom from 'react-dom';
 let onLoad = ReactDom.findDOMNode(document.getElementById('page-load'));
-function request (pUrl, pType= 'GET'.toLocaleLowerCase(), data={}) {
+function request (pUrl, pType= 'get'.toLocaleLowerCase(), data={}) {
   showLoad();
 
-  let config = {},// eslint-disable-line no-unused-vars
+  let config = {},
       headers={},
       params='';
   if (pType === 'get'.toLocaleLowerCase()) {
@@ -25,9 +25,10 @@ function request (pUrl, pType= 'GET'.toLocaleLowerCase(), data={}) {
       headers,
       body:params
     }
+    hideLoad();
   }
 
-  return fetch(pUrl, {method: pType}).then(res => {
+  return fetch(pUrl, config).then(res => {
     hideLoad();
     return res.json();
   });

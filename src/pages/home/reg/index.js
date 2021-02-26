@@ -41,9 +41,17 @@ export default class RegIndex extends React.Component {
     });
   }
   // 获取验证码
-  getCode(){
+  async getCode(){
     if(this.bSendCode && this.state.bCodeSuccess) {
       this.bSendCode = false;
+      let resData = await this.isSameCellphone();
+      if(resData.code === 200){
+        if(resData.data.isreg === '1'){
+          Toast.info('请输入手机号已存在',2);
+          this.bSendCode = true;
+          return false;
+        }
+      }
       let iTime = 10;
       this.timer= setInterval(() => {
         if(iTime>0){
@@ -58,7 +66,7 @@ export default class RegIndex extends React.Component {
     }
   }
   // 点击注册按钮数据
-  submitData(){
+  async submitData(){
     if(this.state.sCellphone.match(/^\s*$/)) {
       Toast.info('请输入手机号',2);
       return false;
@@ -67,10 +75,13 @@ export default class RegIndex extends React.Component {
       Toast.info('请输入正确的手机号',2);
       return false;
     }
-    this.isSameCellphone((data)=>{
-      console.log(this.state.sCellphone);
-      console.log(data);
-    });
+    let resData = await this.isSameCellphone();
+    if(resData.code === 200){
+      if(resData.data.isreg === '1'){
+        Toast.info('请输入手机号已存在',2);
+        return false;
+      }
+    }
     if(this.state.sCode.match(/^\s*$/)) {
       Toast.info('请输入短信验证码',2);
       return false;
@@ -79,12 +90,18 @@ export default class RegIndex extends React.Component {
       Toast.info('请输入密码',2);
       return false;
     }
+    let sUrl = config.baseUrl + 'api/home/user/reg?token='+config.token;
+    request(sUrl, 'post',{vcode:this.state.sCode, cellphone:this.state.sCellphone, password:this.state.sPassword}).then(res=>{
+      if(res.code===200){
+        this.props.history.goBack();
+      }
+    })
   }
   // 检测手机号是否注册
-  isSameCellphone(callback){
+  isSameCellphone(){
     let sUrl = config.baseUrl+'/api/home/user/isreg?token='+ config.token;
-    request(sUrl, 'post',{username:this.state.sCellphone}).then(res =>{
-      callback(res);
+    return request(sUrl, 'post',{username:this.state.sCellphone}).then(res =>{
+      return(res);
     })
   }
   render() {
@@ -94,7 +111,7 @@ export default class RegIndex extends React.Component {
           <div className={Css['main']}>
             <div className={Css['main-list']}>
               <div className={Css['input-wrap']}>
-                <input type="tel" placeholder="请输入手机号" onChange={(e) => {this.checkCellphone(e)}} disabled={this.bSendCode ? false : true}/>
+                <input type="tel" placeholder="请输入手机号" onChange={(e) => {this.checkCellphone(e)}}/>
               </div>
               <div className={this.state.bCodeSuccess ? Css['btn-code'] + ' ' + Css['success'] : Css['btn-code']} onClick={this.getCode.bind(this)}>{this.state.sCodeText}</div>
             </div>
