@@ -95,4 +95,25 @@
     border-radius: 4px;
     margin-top: 0.4rem;
 }
+.fast-wrap{
+    display: flex;
+    justify-content: space-between;
+    line-height: 0.4rem;
+    font-size: 0.28rem;
+    margin-top: 0.1rem;
+}
+.fast-wrap .btn-forget::before{
+    font-family: iconfont;
+    content: '\e604';
+    font-size: 0.28rem;
+    margin-right: 0.1rem;
+    color: #333;
+}
+.fast-wrap .quick-reg::before{
+    font-family: iconfont;
+    content: '\e605';
+    font-size: 0.28rem;
+    margin-right: 0.1rem;
+    color: #333;
+}
 
