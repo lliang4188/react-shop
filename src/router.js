@@ -17,6 +17,8 @@ const GoodsSearch = asyncComponent(() => import('./pages/home/goods/search'));
 const GoodsDetails = asyncComponent(() => import('./pages/home/goods/details'));
 const LoginIndex = asyncComponent(() => import('./pages/home/login'));
 const RegIndex = asyncComponent(() => import('./pages/home/reg'));
+const BalanceIndex = asyncComponent(() => import('./pages/home/balance'));
+
 
 export default class  RouterComponent extends React.Component {
   render() {
@@ -31,6 +33,7 @@ export default class  RouterComponent extends React.Component {
                     <Route path={config.path + "goods/details"} component={GoodsDetails} ></Route>
                     <Route path={config.path + "login/index"} component={LoginIndex} ></Route>
                     <Route path={config.path + "reg/index"} component={RegIndex} ></Route>
+                    <Route path={config.path + "balance/index"} component={BalanceIndex} ></Route>
                     <Redirect to={config.path + "home/index"}></Redirect>
                 </Switch>
               </React.Fragment>

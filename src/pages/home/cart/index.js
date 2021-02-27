@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import config from "../../../assets/js/conf/config";
 import actions from '../../../actions';
 import SubHeader from "../../../components/header/subheader";
 import Css from "../../../assets/css/home/cart/index.css";
@@ -84,6 +85,12 @@ class CartIndex extends React.Component {
       this.props.dispatch(actions.cart.changeAmount({amount:iAmount, index:index}))
     }
   }
+  // 跳转到结算页
+  goBalance (){
+    if(this.props.state.cart.total > 0){
+      this.props.history.push(config.path+'balance/index');
+    }
+  }
   componentWillUnmount() {
     this.setState = (state,callback) => {
       return;
@@ -153,7 +160,7 @@ class CartIndex extends React.Component {
               <span className={Css['select-text']}>全选</span>
             </div>
             <div className={Css['total']}>运费：<span>&yen;{this.props.state.cart.freight === -Infinity ? 0 :this.props.state.cart.freight}</span>合计：<span>&yen;{this.props.state.cart.total}</span></div>
-            <div className={this.props.state.cart.total > 0 ? Css['order-btn'] : Css['order-btn'] + ' ' + Css['disable']}>去结算</div>
+            <div className={this.props.state.cart.total > 0 ? Css['order-btn'] : Css['order-btn'] + ' ' + Css['disable']} onClick={this.goBalance.bind(this)}>去结算</div>
 
           </div>
         </div>
