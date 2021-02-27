@@ -1,4 +1,7 @@
 import echo from '../libs/echo';
+import config from "../conf/config";
+import {request} from "../libs/request";
+import action from "../../../actions";
 function lazyImg(){
   echo.init({
     offset : 100,//可是区域多少像素可以被加载
@@ -28,8 +31,19 @@ function setScrollTop(val=0){
     document.documentElement.scrollTop=val;
   },500);
 }
+// 会员登录安全验证
+function safeAuth(props) {
+  let sUrl = config.baseUrl+'api/home/user/safe?token='+config.token;
+  request(sUrl, 'post', {uid:props.state.user.uid, auth_token: props.state.user.authToken}).then( res =>{
+    if(res.code !== 200){
+      props.dispatch(action.user.outLogin());
+      props.history.replace(config.path + 'login/index')
+    }
+  })
+}
 export {
   lazyImg,
   localParam,
-  setScrollTop
+  setScrollTop,
+  safeAuth
 }

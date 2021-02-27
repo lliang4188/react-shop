@@ -2,13 +2,14 @@ import React from 'react';
 import config from "../../../assets/js/conf/config";
 import {lazyImg,setScrollTop} from "../../../assets/js/utils/util";
 import {request} from "../../../assets/js/libs/request";
+import { connect } from 'react-redux';
 import SwiperCore, {Pagination} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import Css from '../../../assets/css/home/index/index.css';
 import SearchComponent from "../../../components/search/search";
 SwiperCore.use([ Pagination]);
-export default class IndexComponent extends React.Component {
+class IndexComponent extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -22,6 +23,7 @@ export default class IndexComponent extends React.Component {
     this.bScroll= true;
   }
   componentDidMount() {
+
     this.getSwiper();
     this.getNav();
     this.getGoodsLevel();
@@ -106,7 +108,9 @@ export default class IndexComponent extends React.Component {
               <div className={Css['search-text']}>请输入宝贝名称</div>
             </div>
             <div className={Css['login-wrap']}>
-              <span onClick={this.pushPage.bind(this, 'login/index')}>登录</span>
+              {
+                this.props.state.user.isLogin ? <span onClick={this.pushPage.bind(this,'home/my')} className={Css['my']}></span> :<span onClick={this.pushPage.bind(this, 'login/index')}>登录</span>
+              }
             </div>
           </div>
           <div className={Css['swiper-wrap']}>
@@ -257,3 +261,8 @@ export default class IndexComponent extends React.Component {
     )
   }
 }
+export default connect((state)=>{
+  return {
+    state:state
+  }
+})(IndexComponent);

@@ -72,6 +72,18 @@
     white-space: nowrap;
     color: #fff;
 }
+.login-wrap .my{
+    width: 0.6rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    text-align: center;
+    font-size: 0.48rem;
+    color: #fff;
+    font-family: iconfont;
+}
+.login-wrap .my::before{
+    content: '\e607';
+}
 .swiper-wrap{
     width: 100%;
     height: 4.5rem;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route,Redirect} from 'react-router-dom';
 import config from "../assets/js/conf/config";
-export function AuthRoute({ component:Component, ...rest }) {
+const AuthRoute = ({ component:Component, ...rest }) => {
   return (
       <Route {...rest} render={props =>
           Boolean(localStorage['isLogin']) ? (
@@ -17,4 +17,7 @@ export function AuthRoute({ component:Component, ...rest }) {
       }
       />
   );
+}
+export {
+  AuthRoute
 }
