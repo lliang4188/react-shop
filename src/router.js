@@ -11,6 +11,7 @@ import React from 'react';
 import {HashRouter as Router,Route,Switch, Redirect} from 'react-router-dom';
 import config from "./assets/js/conf/config";
 import asyncComponent from "./components/async/AsyncComponent";
+import {AuthRoute} from "./routes/private";
 const IndexComponent =asyncComponent(()=> import('./pages/home/home/index'));
 const GoodsClassify = asyncComponent(() => import('./pages/home/goods/classify'));
 const GoodsSearch = asyncComponent(() => import('./pages/home/goods/search'));
@@ -18,6 +19,8 @@ const GoodsDetails = asyncComponent(() => import('./pages/home/goods/details'));
 const LoginIndex = asyncComponent(() => import('./pages/home/login'));
 const RegIndex = asyncComponent(() => import('./pages/home/reg'));
 const BalanceIndex = asyncComponent(() => import('./pages/home/balance'));
+const AddressIndex = asyncComponent(() => import('./pages/home/address/index'));
+const AddressAdd = asyncComponent(() => import('./pages/home/address/add'));
 
 
 export default class  RouterComponent extends React.Component {
@@ -33,7 +36,9 @@ export default class  RouterComponent extends React.Component {
                     <Route path={config.path + "goods/details"} component={GoodsDetails} ></Route>
                     <Route path={config.path + "login/index"} component={LoginIndex} ></Route>
                     <Route path={config.path + "reg/index"} component={RegIndex} ></Route>
-                    <Route path={config.path + "balance/index"} component={BalanceIndex} ></Route>
+                    <AuthRoute path={config.path + "balance/index"} component={BalanceIndex} ></AuthRoute>
+                    <AuthRoute path={config.path + "address/index"} component={AddressIndex} ></AuthRoute>
+                    <AuthRoute path={config.path + "address/add"} component={AddressAdd} ></AuthRoute>
                     <Redirect to={config.path + "home/index"}></Redirect>
                 </Switch>
               </React.Fragment>

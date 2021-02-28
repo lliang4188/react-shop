@@ -3,6 +3,7 @@
 ul,li{list-style-type: none;}
 input{outline: none;border-radius: 0;border:0 none;}
 input:disabled{background-color: transparent;}
+
 html,body {
     /*font-size: 20px!important;*/
     min-height: 100%;

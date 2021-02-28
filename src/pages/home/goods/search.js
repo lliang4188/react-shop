@@ -79,11 +79,11 @@ export default class GoodsSearch extends React.Component {
   showScreen(){
     this.refs['mask'].addEventListener("touchmove",function (e) {
       e.preventDefault();
-    },{ passive: false },false);
+    },{ passive: false });
 
     this.refs['screen'].addEventListener("touchmove",function (e) {
       e.preventDefault();
-    },{ passive: false },false);
+    },{ passive: false });
     this.setState({  screenMove:Css['move'], maskShow: true });
   }
   // 隐藏筛选面板

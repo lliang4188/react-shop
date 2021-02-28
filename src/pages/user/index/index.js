@@ -3,7 +3,7 @@ import config from "../../../assets/js/conf/config";
 import { connect } from 'react-redux';
 import action from '../../../actions';
 import {request} from '../../../assets/js/libs/request';
-import { safeAuth } from '../../../assets/js/utils/util'
+import { safeAuth } from '../../../assets/js/utils/util';
 class UserIndex extends React.Component {
   constructor(props) {
     super(props);
