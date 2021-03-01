@@ -15,7 +15,7 @@
 }
 .address-list{
     border-bottom: 1px solid #efefef;
-    padding: 0 0.3rem;
+    padding: 0.1rem 0.3rem 0;
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
@@ -32,6 +32,7 @@
     text-align: center;
     font-family: iconfont;
     color: #fdb709;
+    margin-right: 0.3rem;
 }
 .address-info-wrap .check-mark::before{
     content: '\e608';
@@ -40,7 +41,6 @@
     flex: 1;
     width: 100%;
     overflow: hidden;
-    padding-left: 0.3rem;
     box-sizing: border-box;
 }
 .address-info-wrap .person{
