@@ -29,6 +29,7 @@
     font-weight: normal;
     flex: 1;
     text-align: center;
+    overflow: hidden;
 }
 .sub-header .right-btn{
     font-size: 0.32rem;

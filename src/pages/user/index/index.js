@@ -2,12 +2,12 @@ import React from 'react';
 import config from "../../../assets/js/conf/config";
 import { connect } from 'react-redux';
 import action from '../../../actions';
+import SubHeader from "../../../components/header/subheader";
+import Css from '../../../assets/css/user/my/index.css';
 import {request} from '../../../assets/js/libs/request';
-import { safeAuth } from '../../../assets/js/utils/util';
 class UserIndex extends React.Component {
   constructor(props) {
     super(props);
-   safeAuth(props);
   }
   // 退出
   outLogin(){
@@ -21,9 +21,17 @@ class UserIndex extends React.Component {
   }
   render() {
     return (
-        <div>
-          <p>昵称：{this.props.state.user.nickname}</p>
-          <button type="button" onClick={this.outLogin.bind(this)}>安全退出</button>
+        <div className={Css['my-page']}>
+         <SubHeader title="会员中心"></SubHeader>
+          <div className={Css['user-info-wrap']}>
+            <div className={Css['head']}>
+              <img src={require('../../../assets/images/common/pic_head.png')} alt=""/>
+            </div>
+            <div className={Css['head-info']}>
+              <p>昵称</p>
+              <p>我的积分：0</p>
+            </div>
+          </div>
         </div>
     )
   }
