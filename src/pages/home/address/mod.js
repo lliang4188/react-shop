@@ -5,9 +5,9 @@ import SubHeader from "../../../components/header/subheader";
 import {request} from '../../../assets/js/libs/request';
 import { Picker, Toast } from 'antd-mobile';
 import {province} from '../../../assets/data/province';
-import { safeAuth } from '../../../assets/js/utils/util';
+import { safeAuth, localParam } from '../../../assets/js/utils/util';
 import Css from '../../../assets/css/home/address/add.css';
-class AddressAdd extends React.Component {
+class AddressMod extends React.Component {
   constructor(props) {
     super(props);
    safeAuth(props);
@@ -21,10 +21,10 @@ class AddressAdd extends React.Component {
      sAddress:'',
      bChecked:false
    }
-   this.bSubmit = true;
+   this.aid = localParam(this.props.location.search).search.aid;
   }
   componentDidMount() {
-
+    this.getAddress();
   }
   componentWillUnmount(){
     this.setState=(state,callback)=>{
@@ -45,7 +45,7 @@ class AddressAdd extends React.Component {
       Toast.info('请输入正确的手机号码', 2);
       return false;
     }
-    if(this.state.pickerValue.join('').match(/^\s*$/)){
+    if(JSON.stringify(this.state.pickerValue).match(/^\s*$/)){
       Toast.info('请选择所在地区', 2);
       return false;
     }
@@ -53,8 +53,9 @@ class AddressAdd extends React.Component {
       Toast.info("请输入详细地址", 2);
       return false;
     }
-    let url = config.baseUrl+'api/user/address/add?token='+config.token;
+    let url = config.baseUrl+'api/user/address/mod?token='+config.token;
     let data = {
+      aid: this.aid,
       uid: this.props.state.user.uid,
       name: this.state.sName,
       cellphone: this.state.sCellphone,
@@ -64,36 +65,55 @@ class AddressAdd extends React.Component {
       address: this.state.sAddress,
       isdefault: this.state.bChecked ? '1': '0'
     };
-    if (this.bSubmit) {
-      this.bSubmit= false;
-      request(url, 'post', data).then((res)=>{
-        if(res.code === 200){
-          Toast.info('添加成功',2,()=>{
-            this.props.history.goBack();
-          })
+    request(url, 'post', data).then((res)=>{
+      if(res.code === 200){
+        if (this.state.bChecked) {
+          localStorage['addressId'] = this.aid;
+          sessionStorage.removeItem('addressId');
         } else {
-          Toast.info(res.data, 2);
+          localStorage.removeItem('addressId');
         }
-      })
-    }
-
+        Toast.info('修改成功',2,()=>{
+          this.props.history.goBack();
+        })
+      } else {
+        Toast.info(res.data, 2);
+      }
+    })
   }
-
+  // 获取收货地址信息
+  getAddress(){
+    let sUrl = config.baseUrl + '/api/user/address/info?uid='+ this.props.state.user.uid +'&aid='+ this.aid +'&token=' +config.token;
+    request(sUrl).then(res => {
+     if (res.code ===200){
+       this.setState({
+         sName: res.data.name,
+         sCellphone: res.data.cellphone,
+         sProvince: res.data.province,
+         sCity: res.data.city,
+         sArea: res.data.area,
+         sAddress: res.data.address,
+         bChecked: res.data.isdefault === '1'? true : false,
+         pickerValue: `${res.data.province},${res.data.city},${res.data.area}`
+       })
+     }
+    })
+  }
   render() {
     return (
         <div className={Css['main']}>
-          <SubHeader title="添加收货地址"></SubHeader>
+          <SubHeader title="修改收货地址"></SubHeader>
 
             <div className={Css['add-item']}>
-              <div className={Css['add-name']}>收货人</div>
+              <div className={Css['add-name']} >收货人</div>
               <div className={Css['add-content']}>
-                <input type="text" placeholder="收货人姓名" onChange={(e)=>{this.setState({sName:e.target.value})}}/>
+                <input type="text" placeholder="收货人姓名" value={this.state.sName} onChange={(e)=>{this.setState({sName:e.target.value})}}/>
               </div>
             </div>
             <div className={Css['add-item']}>
               <div className={Css['add-name']}>联系方式</div>
               <div className={Css['add-content']}>
-                <input type="text" placeholder="联系人手机号" onChange={(e)=>{this.setState({sCellphone:e.target.value})}}/>
+                <input type="text" placeholder="联系人手机号" value={this.state.sCellphone} onChange={(e)=>{this.setState({sCellphone:e.target.value})}}/>
               </div>
             </div>
             <div className={Css['add-item']}>
@@ -113,7 +133,7 @@ class AddressAdd extends React.Component {
             <div className={Css['add-item']}>
               <div className={Css['add-name']}>详细地址</div>
               <div className={Css['add-content']}>
-                <input type="text" placeholder="街道详细地址" onChange={(e) =>{this.setState({sAddress:e.target.value})}}/>
+                <input type="text" placeholder="街道详细地址" value={this.state.sAddress} onChange={(e) =>{this.setState({sAddress:e.target.value})}}/>
               </div>
             </div>
             <div className={Css['add-item']}>
@@ -133,4 +153,4 @@ export default connect((state)=>{
   return {
     state:state
   }
-})(AddressAdd);
+})(AddressMod);

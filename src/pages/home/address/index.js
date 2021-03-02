@@ -25,17 +25,24 @@ class AddressIndex extends React.Component {
     this.props.history.push(config.path+ url)
   }
   // 删除收货地址
-  delAddress(index,aid){
+  delAddress(e,index,aid){
+    e.stopPropagation();
     Modal.alert('', '确定要删除吗？', [
       { text: '取消', onPress: () => {}, style: 'default' },
       { text: '确定', onPress: () => {
-            console.log(index);
             let aAddress = this.state.aAddress;
             aAddress.splice(index,1);
             this.setState({aAddress:aAddress});
             let sUrl = config.baseUrl+'/api/user/address/del?uid='+this.props.state.user.uid+'&aid='+ aid +'&token='+config.token;
             request(sUrl).then(res=>{
-              console.log(res);
+              if (res.code === 200){
+                if (aid === sessionStorage['addressId']) {
+                  sessionStorage.removeItem('addressId');
+                }
+                if (aid === localStorage['addressId']) {
+                  localStorage.removeItem('addressId');
+                }
+              }
             })
         } },
     ]);
@@ -50,6 +57,18 @@ class AddressIndex extends React.Component {
 
       }
     })
+  }
+
+  // 选择收货地址
+  selectAddress(aid){
+    sessionStorage['addressId'] = aid;
+    this.props.history.replace(config.path + 'balance/index');
+  }
+
+  // 编辑收货地址
+  modAddress(e,aid){
+    e.stopPropagation();
+    this.pushPage('address/mod?aid='+aid);
   }
   componentWillUnmount() {
     this.setState = (state,callback) => {
@@ -69,7 +88,7 @@ class AddressIndex extends React.Component {
               this.state.aAddress.length>0?
                 this.state.aAddress.map((item,index)=>{
                   return (
-                    <div key={index} className={Css['address-list']}>
+                    <div key={index} className={Css['address-list']} onClick={this.selectAddress.bind(this, item.aid)}>
                       <div className={Css['address-info-wrap']}>
                         {item.isdefault==='1'?  <div className={Css['check-mark']}></div> :''}
 
@@ -85,13 +104,13 @@ class AddressIndex extends React.Component {
                         </div>
                       </div>
                       <div className={Css['handle-wrap']}>
-                        <div className={Css['edit']}></div>
-                        <div className={Css['del']} onClick={this.delAddress.bind(this, index,item.aid)}></div>
+                        <div className={Css['edit']} onClick={(e)=>{this.modAddress(e, item.aid)}}></div>
+                        <div className={Css['del']} onClick={(e) =>{this.delAddress(e, index,item.aid)}}></div>
                       </div>
                     </div>
                   )
                 })
-                : ''
+                  : <div className="no-data">您还没有添加收货地址</div>
             }
           </div>
         </div>

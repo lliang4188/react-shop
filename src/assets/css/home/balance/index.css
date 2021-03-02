@@ -8,7 +8,18 @@
 }
 .address-wrap{
     padding: 0.2rem 0.3rem;
+    height: 1rem;
     position: relative;
+}
+.address-wrap .address-none{
+    font-size: 0.28rem;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top:50%;
+    transform: translateY(-50%);
+    color: #999;
 }
 .address-wrap .receiver{
     font-size: 0.28rem;
@@ -25,6 +36,11 @@
     position: relative;
     padding-left: 0.34rem;
     padding-right: 0.5rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .address-wrap .address::before{
     font-family: iconfont;
@@ -33,7 +49,8 @@
     font-size: 0.24rem;
     position: absolute;
     left: 0;
-    top: 0.05rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .address-wrap .arrow{
     width: 0.32rem;
@@ -141,4 +158,29 @@
     text-align: center;
 }
 
+.order-end{
+    text-align: center;
+    padding-top: 0.2rem;
+    font-size: 0.32rem;
+}
+.order-end .success-text{
+    color: #e51b19;
+}
+.order-end .order-text{
+    color: #f17f1f;
+    margin-top: 0.2rem;
+}
+.order-end .view{
+    margin-top: 0.2rem;
+    color: #36c;
+}
+.order-end .btn-pay{
+    width: 3.2rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    border-radius: 4px;
+    margin: 0.2rem auto 0;
+    background-color: #0a8ddf;
+    color: #fff;
+}
 

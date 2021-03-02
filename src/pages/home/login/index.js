@@ -15,6 +15,7 @@ class LoginIndex extends React.Component {
       sCellphone: '',
       sPassword: ''
     };
+    this.bSubmit = true;
   }
 
   componentDidMount() {
@@ -55,19 +56,24 @@ class LoginIndex extends React.Component {
       Toast.info('请输入密码', 2);
       return false;
     }
-    let sUrl = config.baseUrl + 'api/home/user/pwdlogin?token=' + config.token;
-    request(sUrl, 'post', {cellphone: this.state.sCellphone, password: this.state.sPassword}).then(res => {
-      if (res.code === 200) {
-        localStorage['uid'] = res.data.uid;
-        localStorage['nickname'] = res.data.nickname;
-        localStorage['authToken'] = res.data.auth_token;
-        localStorage['isLogin'] = true;
-        this.props.dispatch(action.user.login({uid:res.data.uid, nickname: res.data.nickname, authToken:res.data.auth_token,isLogin:true}));
-        this.props.history.goBack();
-      } else {
-        Toast.info(res.data, 2);
-      }
-    })
+    if (this.bSubmit ){
+      this.bSubmit = false;
+      let sUrl = config.baseUrl + 'api/home/user/pwdlogin?token=' + config.token;
+      request(sUrl, 'post', {cellphone: this.state.sCellphone, password: this.state.sPassword}).then(res => {
+        if (res.code === 200) {
+          localStorage['uid'] = res.data.uid;
+          localStorage['nickname'] = res.data.nickname;
+          localStorage['authToken'] = res.data.auth_token;
+          localStorage['isLogin'] = true;
+          this.props.dispatch(action.user.login({uid:res.data.uid, nickname: res.data.nickname, authToken:res.data.auth_token,isLogin:true}));
+          this.props.history.goBack();
+        } else {
+          Toast.info(res.data, 2);
+        }
+      })
+      this.bSubmit = true;
+    }
+
   }
 
   pushPage(url) {

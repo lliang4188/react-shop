@@ -37,6 +37,7 @@ function safeAuth(props) {
   request(sUrl, 'post', {uid:props.state.user.uid, auth_token: props.state.user.authToken}).then( res =>{
     if(res.code !== 200){
       props.dispatch(action.user.outLogin());
+      props.dispatch(action.cart.clearCart());
       props.history.replace(config.path + 'login/index')
     }
   })

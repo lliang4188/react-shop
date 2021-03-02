@@ -21,6 +21,8 @@ const RegIndex = asyncComponent(() => import('./pages/home/reg'));
 const BalanceIndex = asyncComponent(() => import('./pages/home/balance'));
 const AddressIndex = asyncComponent(() => import('./pages/home/address/index'));
 const AddressAdd = asyncComponent(() => import('./pages/home/address/add'));
+const AddressMod = asyncComponent(() => import('./pages/home/address/mod'));
+const BalanceEnd = asyncComponent(() => import('./pages/home/balance/end'));
 
 
 export default class  RouterComponent extends React.Component {
@@ -39,6 +41,8 @@ export default class  RouterComponent extends React.Component {
                     <AuthRoute path={config.path + "balance/index"} component={BalanceIndex} ></AuthRoute>
                     <AuthRoute path={config.path + "address/index"} component={AddressIndex} ></AuthRoute>
                     <AuthRoute path={config.path + "address/add"} component={AddressAdd} ></AuthRoute>
+                    <AuthRoute path={config.path + "address/mod"} component={AddressMod} ></AuthRoute>
+                    <AuthRoute path={config.path + "balance/end"} component={BalanceEnd} ></AuthRoute>
                     <Redirect to={config.path + "home/index"}></Redirect>
                 </Switch>
               </React.Fragment>

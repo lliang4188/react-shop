@@ -16,6 +16,7 @@ class UserIndex extends React.Component {
       console.log(res);
     })
     this.props.dispatch(action.user.outLogin());
+    this.props.dispatch(action.cart.clearCart());
     this.props.history.replace(config.path+ 'login/index');
   }
   render() {

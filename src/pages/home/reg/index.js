@@ -17,6 +17,7 @@ export default class RegIndex extends React.Component {
     }
     this.timer = null;
     this.bSendCode = true;
+    this.bSubmit = true;
   }
   componentDidMount() {
   }
@@ -90,12 +91,16 @@ export default class RegIndex extends React.Component {
       Toast.info('请输入密码',2);
       return false;
     }
-    let sUrl = config.baseUrl + 'api/home/user/reg?token='+config.token;
-    request(sUrl, 'post',{vcode:this.state.sCode, cellphone:this.state.sCellphone, password:this.state.sPassword}).then(res=>{
-      if(res.code===200){
-        this.props.history.goBack();
-      }
-    })
+    if (this.bSubmit){
+      this.bSubmit = false;
+      let sUrl = config.baseUrl + 'api/home/user/reg?token='+config.token;
+      request(sUrl, 'post',{vcode:this.state.sCode, cellphone:this.state.sCellphone, password:this.state.sPassword}).then(res=>{
+        if(res.code===200){
+          this.props.history.goBack();
+        }
+      })
+    }
+
   }
   // 检测手机号是否注册
   isSameCellphone(){
