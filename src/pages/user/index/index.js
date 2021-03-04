@@ -43,6 +43,9 @@ class UserIndex extends React.Component {
       this.props.history.replace(config.path+ 'login/index');
     }
   }
+  pushPage(url){
+    this.props.history.push(config.path+url);
+  }
   // 获取会员信息
   getUserInfo(){
     if (this.props.state.user.isLogin===true){
@@ -83,7 +86,7 @@ class UserIndex extends React.Component {
             <div className={Css['item']}>待评价</div>
           </div>
           <div className={Css['menu-list-wrap']}>
-            <div className={Css['menu-item']}>个人资料</div>
+            <div className={Css['menu-item']} onClick={this.pushPage.bind(this,'profile/index')}>个人资料</div>
             <div className={Css['menu-item']}>收货地址</div>
             <div className={Css['menu-item']}>绑定手机</div>
             <div className={Css['menu-item']}>修改密码</div>
