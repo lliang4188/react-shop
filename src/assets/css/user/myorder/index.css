@@ -1,0 +1,9 @@
+.order-page{
+    padding-top: 1rem;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.order-main{
+    padding-top: 0.8rem;
+}

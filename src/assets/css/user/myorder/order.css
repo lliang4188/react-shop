@@ -1,0 +1,97 @@
+.order-list{
+    overflow: hidden;
+    padding: 0 0.3rem;
+    background-color: #fff;
+    margin-top: 0.2rem;
+}
+.order-list:first-child{
+    margin-top: 0;
+}
+.order-list .number-wrap{
+    height: 0.8rem;
+    border-bottom: 1px solid #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.order-list .number{
+    font-size: 0.28rem;
+    color: #666;
+}
+
+.order-list .status{
+    font-size: 0.28rem;
+}
+.order-list .item-wrap{
+    display: flex;
+    padding: 0.2rem 0;
+    justify-content: space-between;
+    border-bottom: 1px solid #efefef;
+}
+.order-list .image{
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: #b5b5b5;
+    margin-right: 0.2rem;
+}
+.order-list .image img{
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+.order-list .info-con{
+    flex: 1;
+    overflow: hidden;
+}
+.order-list .title{
+    font-size: 0.28rem;
+    max-height: 0.76rem;
+    word-break: break-all;
+    overflow: hidden;
+    font-weight: normal;
+}
+.order-list .amount{
+    font-size: 0.24rem;
+    color: #999;
+}
+.order-list .review-amount{
+    display: block;
+    text-align: right;
+}
+.order-list .total-wrap{
+    height: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.order-list .total{
+    font-size: 0.28rem;
+    color: #666;
+}
+.order-list .total .price{
+    color: #e42321;
+    font-weight: normal;
+    font-size: 0.32rem;
+}
+.order-list .status-wrap{
+    display: flex;
+}
+.order-list .status-wrap .btn-status{
+    padding: 0 0.1rem;
+    height: 0.52rem;
+    line-height: 0.52rem;
+    text-align: center;
+    background-color: #f51d2a;
+    color: #fff;
+    font-size: 0.28rem;
+    border-radius: 5px;
+    margin-left: 0.2rem;
+}
+.order-list .status-wrap .btn-status:first-child{
+    margin-left: 0;
+}
+.order-list .review-wrap{
+    justify-content: flex-end;
+}

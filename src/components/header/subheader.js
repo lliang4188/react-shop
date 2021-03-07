@@ -10,12 +10,15 @@ class SubHeader extends React.Component {
       this.props.history.goBack();
     }
   }
+  getClick(){
+    this.props['onClickRightBtn']();
+  }
   render() {
     return (
       <div className="sub-header">
         <div className="back" onClick={this.goBack.bind(this)}></div>
         <h1 className="title">{this.props.title}</h1>
-        <div className={this.props['right-text']? 'right-btn' : 'hide'}>{this.props['right-text']}</div>
+        <div className={this.props['right-text']? 'right-btn' : 'hide'} onClick={this.getClick.bind(this)}>{this.props['right-text']}</div>
       </div>
     )
   }

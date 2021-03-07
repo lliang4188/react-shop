@@ -1,9 +1,9 @@
 import React from 'react';
 import config from "../../../assets/js/conf/config";
 import { connect } from 'react-redux';
-import action from '../../../actions';
+// import action from '../../../actions';
 import SubHeader from "../../../components/header/subheader";
-import { ActionSheet } from 'antd-mobile';
+import { ActionSheet, Toast } from 'antd-mobile';
 import Css from '../../../assets/css/user/profile/index.css';
 import {request} from '../../../assets/js/libs/request';
 class ProfileIndex extends React.Component {
@@ -12,7 +12,9 @@ class ProfileIndex extends React.Component {
     this.state = {
       sHead: require('../../../assets/images/common/pic_head.png'),
       sNickname: '昵称',
-      sGender: ''
+      sGender: '',
+      iGender: 0,
+      sHeadName:''
 
     }
   }
@@ -31,7 +33,9 @@ class ProfileIndex extends React.Component {
         onTouchStart: e => e.preventDefault(),
       },
       (buttonIndex) => {
-        this.setState({ sGender:buttonIndex===0 ? '男' : buttonIndex===1 ? '女': this.state.sGender})
+        if(buttonIndex !==2){
+          this.setState({ sGender:buttonIndex===0 ? '男' : buttonIndex===1 ? '女': this.state.sGender,iGender:buttonIndex===0?1:buttonIndex===1?2:this.state.iGender});
+        }
       });
   }
   // 获取会员信息
@@ -41,26 +45,62 @@ class ProfileIndex extends React.Component {
       request(sUrl).then(res=>{
         if( res.code === 200){
           this.setState({
-            sHead: res.data.head,
+            sHead: res.data.head !=='' ? res.data.head : this.state.sHead,
             sNickname: res.data.nickname,
-            sPoint: res.data.points
+            sPoint: res.data.points,
+            iGender: res.data.gender,
+            sGender:res.data.gender==='1'?'男':res.data.gender==='2'?'女':''
           })
         }
       })
     }
+  }
 
+  // 上传头像
+  uploadHead(){
+    let sUrl = config.baseUrl + '/api/user/myinfo/formdatahead?token='+ config.token;
+    request(sUrl, 'file',{headfile:this.refs['headfile'].files[0]}).then(res =>{
+      if(res.code === 200){
+        this.setState({sHead:'http://vueshop.glbuys.com/userfiles/head/'+res.data.msbox,sHeadName:res.data.msbox})
+      }
+    })
+  }
+  // 保存
+  submitSave(){
+    if (this.state.sNickname.match(/^\s*$/)){
+      Toast.info('请输入昵称',2);
+      return false;
+    }
+    if (this.state.sGender.match(/^\s*$/)){
+      Toast.info('请选择性别',2);
+      return false;
+    }
+    let sUrl = config.baseUrl+ '/api/user/myinfo/updateuser?token=' +config.token;
+    let jData = {
+      uid: this.props.state.user.uid,
+      nickname: this.state.sNickname,
+      gender:this.state.iGender,
+      head: this.state.sHeadName
+    }
+    request(sUrl, 'post', jData).then(res =>{
+       if(res.code ===200){
+         Toast.info(res.data,2,()=>{
+           this.props.history.goBack();
+         })
+       }
+    })
   }
 
   render() {
     return (
         <div className={Css['profile-page']}>
-         <SubHeader title="个人资料" right-text="保存"></SubHeader>
+         <SubHeader title="个人资料" right-text="保存" onClickRightBtn={this.submitSave.bind(this)}></SubHeader>
          <div className={Css['profile-main']}>
            <div className={Css['item'] + ' ' + Css['head']}>
              <span>头像</span>
              <div className={Css['head-img']}>
                <img src={this.state.sHead} alt={this.state.sNickname}/>
-               <input type="file"/>
+               <input ref="headfile" type="file" onChange={this.uploadHead.bind(this)}/>
              </div>
            </div>
            <div className={Css['item']}>

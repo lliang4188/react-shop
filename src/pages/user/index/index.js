@@ -53,7 +53,7 @@ class UserIndex extends React.Component {
       request(sUrl).then(res=>{
         if( res.code === 200){
           this.setState({
-            sHead: res.data.head,
+            sHead: res.data.head !=='' ? res.data.head : this.state.sHead,
             sNickname: res.data.nickname,
             sPoint: res.data.points
           })
@@ -78,12 +78,12 @@ class UserIndex extends React.Component {
           </div>
           <div className={Css['order-name-wrap']}>
             <div className={Css['order-name']}>全部订单</div>
-            <div className={Css['show-word']}>查看全部订单 &gt;</div>
+            <div className={Css['show-word']} onClick={this.pushPage.bind(this,'myorder/order?status=all')}>查看全部订单 &gt;</div>
           </div>
           <div className={Css['order-status-wrap']}>
-            <div className={Css['item']}>待支付</div>
-            <div className={Css['item']}>待收货</div>
-            <div className={Css['item']}>待评价</div>
+            <div className={Css['item']} onClick={this.pushPage.bind(this,'myorder/order?status=0')}>待支付</div>
+            <div className={Css['item']} onClick={this.pushPage.bind(this,'myorder/order?status=1')}>待收货</div>
+            <div className={Css['item']} onClick={this.pushPage.bind(this,'myorder/order/review?status=2')}>待评价</div>
           </div>
           <div className={Css['menu-list-wrap']}>
             <div className={Css['menu-item']} onClick={this.pushPage.bind(this,'profile/index')}>个人资料</div>

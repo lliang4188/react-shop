@@ -8,7 +8,9 @@ import SubHeader from "../../../components/header/subheader";
 
 
 class BalanceEnd extends React.Component {
-
+  pushPage (url) {
+    this.props.history.push(config.path + url);
+  }
   constructor(props){
     super(props);
     safeAuth(props);
@@ -42,7 +44,7 @@ class BalanceEnd extends React.Component {
             <div className={Css['order-end']}>
               <div className={Css['success-text']}>下单成功！</div>
               <div className={Css['order-text']}>订单编号：{this.state.aOrderNum}</div>
-              <div className={Css['view']}>查看订单</div>
+              <div className={Css['view']} onClick={this.pushPage.bind(this, 'myorder/order?status = all')}>查看订单</div>
               <div className={Css['btn-pay']}>去付款</div>
             </div>
           </div>

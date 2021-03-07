@@ -1,0 +1,24 @@
+.order-nav{
+    height: 0.8rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top:1rem;
+    z-index: 8;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.28rem;
+    line-height: 0.8rem;
+    text-align: center;
+    border-bottom: 1px solid #efefef;
+}
+.order-nav .nav-ele{
+    flex:1;
+    border-bottom: 1px solid transparent;
+}
+.order-nav .nav-ele.active{
+    border-bottom-color: #e42321;
+}
+
