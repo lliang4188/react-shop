@@ -3,7 +3,8 @@ import config from "../../../assets/js/conf/config";
 import {request} from "../../../assets/js/libs/request";
 import { connect } from 'react-redux';
 import Css from '../../../assets/css/user/myorder/order.css';
-import {localParam} from "../../../assets/js/utils/util";
+import {lazyImg, localParam} from "../../../assets/js/utils/util";
+import UpRefresh from '../../../assets/js/libs/uprefresh';
 
 
 class OrderPage extends React.Component {
@@ -11,21 +12,58 @@ class OrderPage extends React.Component {
     super(props);
     this.state = {
       status: localParam(this.props.location.search).search.status ? localParam(this.props.location.search).search.status : '',
-      aOrder:[]
-    }
+      aOrder:[],
+      itemTotal: 0
+    };
+    this.oUpRefresh= null;
+    this.curPage= 1;
+    this.maxPage = 0;
+    this.offsetBottom = 100;
   }
   componentDidMount() {
     this.getData();
   }
+  componentWillUnmount() {
+    this.oUpRefresh = null;
+    this.setState = (state,callback) => {
+      return;
+    }
+  }
+
+
   getData(){
-    let sUrl= config.baseUrl+ '/api/user/myorder/index?uid='+ this.props.state.user.uid +'& status=' + this.state.status + '&token='+ config.token +'&page=1';
+    let sUrl= config.baseUrl+ '/api/user/myorder/index?uid='+ this.props.state.user.uid +'& status=' + this.state.status + '&token='+ config.token +'&page='+this.curPage;
     request(sUrl).then(res=>{
-      console.log(res);
       if (res.code === 200) {
-        this.setState({aOrder: res.data});
+        this.maxPage=res.pageinfo.pagenum;
+        this.setState({aOrder: res.data},()=>{
+          lazyImg();
+          this.getScrollPage();
+        });
+
       }
     })
   }
+  getScrollPage(){
+    this.oUpRefresh = new UpRefresh({'curPage': this.curPage, 'maxPage':this.maxPage, 'offsetBottom': this.offsetBottom},curPage =>{
+      let url = config.baseUrl+ '/api/user/myorder/index?uid='+ this.props.state.user.uid +'& status=' + this.state.status + '&token='+ config.token +'&page='+curPage;
+      request(url).then(res => {
+        if (res.code === 200) {
+          if (res.data.length > 0) {
+            let aOrder = this.state.aOrder;
+            for(let i=0; i<aOrder.length; i++){
+              aOrder.push(res.data[i]);
+            }
+            this.setState({aOrder:aOrder}, ()=>{
+              lazyImg();
+            });
+          }
+        }
+      })
+    });
+
+  }
+
 
   render() {
     return (
@@ -45,7 +83,7 @@ class OrderPage extends React.Component {
                           return (
                           <div className={Css['item-wrap']} key={index2}>
                             <div className={Css['image']}>
-                              <img src={item2.image} alt={item2.title}/>
+                              <img src={require("../../../assets/images/common/lazyImg.jpg")} data-echo={item2.image} alt={item2.title}/>
                             </div>
                             <div className={Css['info-con']}>
                               <h4 className={Css['title']}>{item2.title} </h4>
