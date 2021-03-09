@@ -24,7 +24,7 @@ class UserIndex extends React.Component {
   // 退出
   outLogin(){
     if (this.props.state.user.isLogin===true){
-      Modal.alert('温馨提示','确认要退出吗？',[
+      Modal.alert('','确认要退出吗？',[
         { text: '取消', onPress: () => {}, style: 'default' },
         { text: '确定', onPress:() =>{
             let sUrl = config.baseUrl + 'api/home/user/safeout?token='+config.token;
@@ -49,7 +49,7 @@ class UserIndex extends React.Component {
   // 获取会员信息
   getUserInfo(){
     if (this.props.state.user.isLogin===true){
-      let sUrl = config.baseUrl +'/api/user/myinfo/userinfo/uid/'+ this.props.state.user.uid +'?token=' + config.token;
+      let sUrl = config.baseUrl +'/api/user/myinfo/userinfo/uid='+ this.props.state.user.uid +'?token=' + config.token;
       request(sUrl).then(res=>{
         if( res.code === 200){
           this.setState({

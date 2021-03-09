@@ -18,7 +18,7 @@ class NavsComponent extends React.Component{
   }
 
   replacePage = (url)=>{
-    this.props.history.replace(config.path+'myorder');
+    this.props.history.replace(config.path+'transfer');
     setTimeout(()=>{
       this.props.history.replace(config.path+ url);
     },30)

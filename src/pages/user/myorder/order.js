@@ -2,6 +2,7 @@ import React from 'react';
 import config from "../../../assets/js/conf/config";
 import {request} from "../../../assets/js/libs/request";
 import { connect } from 'react-redux';
+import { Modal, Toast  } from 'antd-mobile';
 import Css from '../../../assets/css/user/myorder/order.css';
 import {lazyImg, localParam} from "../../../assets/js/utils/util";
 import UpRefresh from '../../../assets/js/libs/uprefresh';
@@ -63,7 +64,32 @@ class OrderPage extends React.Component {
     });
 
   }
-
+  // 取消订单
+  cancelOrder(ordernum, index){
+    Modal.alert('','确认要取消订单吗？',[
+      { text: '取消', onPress: () => {}, style: 'default' },
+      { text: '确定', onPress:() =>{
+          let sUrl=config.baseUrl+'/api/user/myorder/clearorder?uid='+this.props.state.user.uid+'&ordernum='+ordernum+'&token='+config.token;
+          request(sUrl).then(res=>{
+             let aOrder = this.state.aOrder;
+             aOrder.splice(index,1);
+             this.setState({aOrder:aOrder});
+           })
+        }}
+    ]);
+  }
+  // 确认收货
+  firmOrder(ordernum, index){
+    let sUrl = config.baseUrl+'/api/user/myorder/finalorder?uid='+ this.props.state.user.uid +'&ordernum='+ ordernum +'&token='+config.token;
+    request(sUrl).then(res =>{
+      if (res.code === 200){
+       let aOrder = this.state.aOrder;
+        aOrder[index].status = 2;
+        this.setState({aOrder:aOrder});
+      }
+      Toast.info(res.data, 2);
+    })
+  }
 
   render() {
     return (
@@ -99,7 +125,8 @@ class OrderPage extends React.Component {
                       <span className={Css['total']}>实付金额：<strong className={Css['price']}>&yen;{item.total}</strong></span>
                       <div className={Css['status-wrap']}>
                         { item.status !== '2' ?
-                          <div className={Css['btn-status']}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
+
+                          <div className={Css['btn-status']} onClick={item.status==='0' ? this.cancelOrder.bind(this, item.ordernum, index) : item.status==='1' ? this.firmOrder.bind(this, item.ordernum, index): ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
                           : ''
 
                         }
