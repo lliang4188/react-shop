@@ -30,8 +30,6 @@ class OrderPage extends React.Component {
       return;
     }
   }
-
-
   getData(){
     let sUrl= config.baseUrl+ '/api/user/myorder/index?uid='+ this.props.state.user.uid +'& status=' + this.state.status + '&token='+ config.token +'&page='+this.curPage;
     request(sUrl).then(res=>{
@@ -125,7 +123,6 @@ class OrderPage extends React.Component {
                       <span className={Css['total']}>实付金额：<strong className={Css['price']}>&yen;{item.total}</strong></span>
                       <div className={Css['status-wrap']}>
                         { item.status !== '2' ?
-
                           <div className={Css['btn-status']} onClick={item.status==='0' ? this.cancelOrder.bind(this, item.ordernum, index) : item.status==='1' ? this.firmOrder.bind(this, item.ordernum, index): ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
                           : ''
 
