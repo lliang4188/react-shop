@@ -3,7 +3,8 @@ import config from "../../../assets/js/conf/config";
 import {request} from "../../../assets/js/libs/request";
 import { connect } from 'react-redux';
 import Css from '../../../assets/css/user/myorder/order.css';
-
+import {lazyImg} from "../../../assets/js/utils/util";
+import UpRefresh from '../../../assets/js/libs/uprefresh';
 
 class ReviewPage extends React.Component {
   constructor(props) {
@@ -32,10 +33,30 @@ class ReviewPage extends React.Component {
     request(sUrl).then(res => {
       console.log(res);
       if (res.code === 200) {
-        this.setState({aOrder:res.data});
+        this.setState({aOrder:res.data},()=>{
+          lazyImg();
+          this.getScrollPage();
+        });
       }
     })
-
+  }
+  getScrollPage(){
+    this.oUpRefresh = new UpRefresh({'curPage': this.curPage, 'maxPage':this.maxPage, 'offsetBottom': this.offsetBottom},curPage =>{
+      let sUrl = config.baseUrl + '/api/user/myorder/reviewOrder?uid='+ this.props.state.user.uid +'&page='+ this.curPage  +'&token=' + config.token;
+      request(sUrl).then(res => {
+        if (res.code === 200) {
+          if (res.data.length > 0) {
+            let aOrder = this.state.aOrder;
+            for(let i=0; i<aOrder.length; i++){
+              aOrder.push(res.data[i]);
+            }
+            this.setState({aOrder:aOrder}, ()=>{
+              lazyImg();
+            });
+          }
+        }
+      })
+    });
   }
 
 

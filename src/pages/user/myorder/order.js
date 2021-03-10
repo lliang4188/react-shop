@@ -88,6 +88,9 @@ class OrderPage extends React.Component {
       Toast.info(res.data, 2);
     })
   }
+  pushPage(url){
+    this.props.history.push(config.path+ url)
+  }
 
   render() {
     return (
@@ -96,7 +99,7 @@ class OrderPage extends React.Component {
             this.state.aOrder.length > 0 ?
               this.state.aOrder.map((item, index) =>{
                 return (
-                  <div className={Css['order-list']} key={index}>
+                  <div className={Css['order-list']} key={index} onClick={this.pushPage.bind(this,'order/detail?ordernum='+item.ordernum)}>
                     <div className={Css['number-wrap']}>
                       <span className={Css['number']}>订单编号：{item.ordernum}</span>
                       <span className={Css['status']}>{item.status === '0' ? '待付款' : item.status === '1' ? '确认收货': '' }</span>
@@ -118,12 +121,11 @@ class OrderPage extends React.Component {
                         })
                         :''
                     }
-
                     <div className={Css['total-wrap']}>
                       <span className={Css['total']}>实付金额：<strong className={Css['price']}>&yen;{item.total}</strong></span>
                       <div className={Css['status-wrap']}>
                         { item.status !== '2' ?
-                          <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? this.cancelOrder.bind(this, item.ordernum, index) : item.status==='1' ? this.firmOrder.bind(this, item.ordernum, index): ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
+                          <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? (e)=>{e.stopPropagation();this.cancelOrder(this, item.ordernum, index)} : item.status==='1' ?(e) =>{ e.stopPropagation(); this.firmOrder(this, item.ordernum, index) } : ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
                           : ''
 
                         }
