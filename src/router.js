@@ -25,10 +25,8 @@ const AddressMod = asyncComponent(() => import('./pages/home/address/mod'));
 const BalanceEnd = asyncComponent(() => import('./pages/home/balance/end'));
 const ProfileIndex = asyncComponent(() => import('./pages/user/profile/index'));
 const MyOrder = asyncComponent(() => import('./pages/user/myorder/index'));
-<<<<<<< HEAD
+
 const OrderDetail = asyncComponent(() => import('./pages/user/myorder/detail'));
-=======
->>>>>>> a74ae21... order-mac
 const Transfer = asyncComponent(() => import('./pages/transfer'));
 
 
@@ -52,12 +50,10 @@ export default class  RouterComponent extends React.Component {
                     <AuthRoute path={config.path + "balance/end"} component={BalanceEnd} ></AuthRoute>
                     <AuthRoute path={config.path + "profile/index"} component={ProfileIndex} ></AuthRoute>
                     <AuthRoute path={config.path + "myorder"} component={MyOrder} ></AuthRoute>
-<<<<<<< HEAD
                     <AuthRoute path={config.path + "order/detail"} component={OrderDetail} ></AuthRoute>
-                    <AuthRoute path={config.path + "transfer"} component={Transfer}></AuthRoute>
-=======
+
                     <AuthRoute path={config.path + "transfer"} component={Transfer} ></AuthRoute>
->>>>>>> a74ae21... order-mac
+
                     <Redirect to={config.path + "home/index"}></Redirect>
                 </Switch>
               </React.Fragment>
