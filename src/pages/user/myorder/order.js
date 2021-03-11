@@ -90,7 +90,6 @@ class OrderPage extends React.Component {
     })
   }
 
-
   render() {
     return (
         <React.Fragment>
@@ -124,10 +123,7 @@ class OrderPage extends React.Component {
                       <span className={Css['total']}>实付金额：<strong className={Css['price']}>&yen;{item.total}</strong></span>
                       <div className={Css['status-wrap']}>
                         { item.status !== '2' ?
-
                           <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? (e)=>{e.stopPropagation();this.cancelOrder(this, item.ordernum, index)} : item.status==='1' ?(e) =>{ e.stopPropagation(); this.firmOrder(this, item.ordernum, index) } : ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
-
-
                           : ''
                         }
                       </div>
