@@ -6,12 +6,5 @@ const Transfer = () => {
       </React.Fragment>
   )
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 export default Transfer;
-=======
-export default Transfer;
->>>>>>> a74ae21... order-mac
-=======
-export default Transfer;
->>>>>>> a74ae21... order-mac
+

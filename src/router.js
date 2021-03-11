@@ -25,9 +25,8 @@ const AddressMod = asyncComponent(() => import('./pages/home/address/mod'));
 const BalanceEnd = asyncComponent(() => import('./pages/home/balance/end'));
 const ProfileIndex = asyncComponent(() => import('./pages/user/profile/index'));
 const MyOrder = asyncComponent(() => import('./pages/user/myorder/index'));
-
-const OrderDetail = asyncComponent(() => import('./pages/user/myorder/detail'));
 const Transfer = asyncComponent(() => import('./pages/transfer'));
+const OrderDetail = asyncComponent(() => import('./pages/user/myorder/detail'));
 
 
 export default class  RouterComponent extends React.Component {
