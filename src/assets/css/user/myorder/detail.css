@@ -63,8 +63,9 @@
 }
 .goods-list{
     display: flex;
-    padding: 0.2rem 0.3rem;
+    padding: 0.24rem 0.3rem;
     align-items: center;
+    border-bottom: 1px solid #efefef;
 }
 .goods-list .image{
     width: 1.2rem;
@@ -125,6 +126,9 @@
 }
 .total-wrap .total-item span:nth-child(2){
     color: #f15353;
+}
+.total-wrap .total-item .free{
+    color: #999 !important;
 }
 .total-bar{
     margin-top: 0.2rem;

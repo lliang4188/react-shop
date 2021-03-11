@@ -69,9 +69,13 @@ class OrderPage extends React.Component {
       { text: '确定', onPress:() =>{
           let sUrl=config.baseUrl+'/api/user/myorder/clearorder?uid='+this.props.state.user.uid+'&ordernum='+ordernum+'&token='+config.token;
           request(sUrl).then(res=>{
-             let aOrder = this.state.aOrder;
-             aOrder.splice(index,1);
-             this.setState({aOrder:aOrder});
+            if(res.code === 200){
+              let aOrder = this.state.aOrder;
+              aOrder.splice(index,1);
+              this.setState({aOrder:aOrder});
+              console.log(this.state.aOrder);
+            }
+
            })
         }}
     ]);

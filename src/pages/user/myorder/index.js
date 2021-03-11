@@ -60,10 +60,12 @@ class MyOrder extends React.Component {
          <SubHeader title={this.state.title}></SubHeader>
          <NavsComponent></NavsComponent>
          <div className={Css['order-main']}>
+           <React.Fragment>
             <Switch>
               <Route path={config.path+'myorder/order'} component={OrderPage}></Route>
               <Route path={config.path+'myorder/review'} component={ReviewPage}></Route>
             </Switch>
+           </React.Fragment>
          </div>
         </div>
     )

@@ -23,6 +23,8 @@ class OrderDetail extends React.Component {
       status: '',
       freight: 0,
       total: 0,
+      trueTotal: 0,
+      orderTime: '',
       goods: []
     }
   }
@@ -40,7 +42,6 @@ class OrderDetail extends React.Component {
   getData (){
     let sUrl = config.baseUrl + '/api/user/myorder/desc?uid='+ this.props.state.user.uid +'&ordernum='+ this.state.ordernum +'&token=' +config.token;
     request(sUrl).then(res => {
-      console.log(res);
       if (res.code === 200) {
         this.setState({
           name: res.data.name,
@@ -50,15 +51,20 @@ class OrderDetail extends React.Component {
           city: res.data.city,
           area: res.data.area,
           address: res.data.address,
-          status: res.data.status,
+          status: res.status,
           freight: res.data.freight,
           total: res.data.total,
+          trueTotal: res.data.truetotal,
+          orderTime: res.data.ordertime,
           goods: res.data.goods
         })
       }
     });
   }
-
+  pushPage(url){
+    console.log(url);
+    this.props.history.push(config.path + url);
+  }
 
 
 
@@ -80,7 +86,7 @@ class OrderDetail extends React.Component {
              this.state.goods.length>0 ?
                  this.state.goods.map((item, index) =>{
                    return (
-                       <div className={Css['goods-list']} key={index}>
+                       <div className={Css['goods-list']} key={index} onClick={this.pushPage.bind(this, 'goods/details/item?gid='+item.gid)}>
                          <div className={Css['image']}>
                            <img src={item.image} alt={item.title}/>
                          </div>
@@ -112,21 +118,21 @@ class OrderDetail extends React.Component {
 
            <div className={Css['order-status']}>
              <span>支付状态</span>
-             <span>待付款</span>
+             <span>{this.state.status  === 0 ? '待付款' : this.state.status  === 1 ? '待收货' : this.state.status  === 2 ? '已收货': ''}</span>
            </div>
            <div className={Css['total-wrap']}>
              <div className={Css['total-item']}>
                <span>商品总额</span>
-               <span>&yen;25.5</span>
+               <span>&yen;{this.state.total}</span>
              </div>
              <div className={Css['total-item']}>
                <span>+运费</span>
-               <span>&yen;10</span>
+               <span className={this.state.freight === 0 ? Css['free']: ''}>{this.state.freight === 0 ? '免运费' : '￥' +this.state.freight  }</span>
              </div>
            </div>
            <div className={Css['total-bar']}>
-             <p>实付金额：<span className={Css['price']}>&yen;35.5</span></p>
-             <p className={Css['time']}>下单时间：2021-03-10 22:06:14</p>
+             <p>实付金额：<span className={Css['price']}>&yen;{this.state.trueTotal}</span></p>
+             <p className={Css['time']}>下单时间：{this.state.orderTime}</p>
            </div>
 
          </div>
