@@ -1,7 +1,6 @@
 import React from 'react';
 import config from "../../../assets/js/conf/config";
 import {request} from "../../../assets/js/libs/request";
-import { Modal} from 'antd-mobile';
 import { connect } from 'react-redux';
 import { Modal, Toast  } from 'antd-mobile';
 import Css from '../../../assets/css/user/myorder/order.css';
@@ -89,6 +88,10 @@ class OrderPage extends React.Component {
       Toast.info(res.data, 2);
     })
   }
+  pushPage(url) {
+    this.props.history.push(config.path + url);
+
+  }
 
   render() {
     return (
@@ -124,7 +127,7 @@ class OrderPage extends React.Component {
                       <div className={Css['status-wrap']}>
                         { item.status !== '2' ?
                           <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? (e)=>{e.stopPropagation();this.cancelOrder(this, item.ordernum, index)} : item.status==='1' ?(e) =>{ e.stopPropagation(); this.firmOrder(this, item.ordernum, index) } : ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
-                          : ''
+                            : <div className={ Css['btn-status']}>评价</div>
                         }
                       </div>
                     </div>

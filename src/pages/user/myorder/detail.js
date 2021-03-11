@@ -3,7 +3,8 @@ import config from "../../../assets/js/conf/config";
 import { connect } from 'react-redux';
 import SubHeader from "../../../components/header/subheader";
 import Css from '../../../assets/css/user/myorder/detail.css';
-import {localParam, safeAuth} from "../../../assets/js/utils/util";
+import {localParam, safeAuth, setScrollTop} from "../../../assets/js/utils/util";
+import {request} from "../../../assets/js/libs/request";
 
 
 class OrderDetail extends React.Component {
@@ -11,13 +12,24 @@ class OrderDetail extends React.Component {
     super(props);
     safeAuth(props);
     this.state={
-
+      ordernum:props.location.search ? localParam(props.location.search).search.ordernum : '',
+      name: '',
+      cellphone: '',
+      orderNum: '',
+      province: '',
+      city: '',
+      area: '',
+      address: '',
+      status: '',
+      freight: 0,
+      total: 0,
+      goods: []
     }
   }
   componentDidMount() {
-
+    setScrollTop();
+    this.getData();
   }
-
 
   componentWillUnmount() {
     this.setState = (state,callback) => {
@@ -25,31 +37,79 @@ class OrderDetail extends React.Component {
     }
   }
 
+  getData (){
+    let sUrl = config.baseUrl + '/api/user/myorder/desc?uid='+ this.props.state.user.uid +'&ordernum='+ this.state.ordernum +'&token=' +config.token;
+    request(sUrl).then(res => {
+      console.log(res);
+      if (res.code === 200) {
+        this.setState({
+          name: res.data.name,
+          cellphone: res.data.cellphone,
+          orderNum: res.data.ordernum,
+          province: res.data.province,
+          city: res.data.city,
+          area: res.data.area,
+          address: res.data.address,
+          status: res.data.status,
+          freight: res.data.freight,
+          total: res.data.total,
+          goods: res.data.goods
+        })
+      }
+    });
+  }
+
+
+
 
   render() {
     return (
         <div className={Css['detail-page']}>
          <SubHeader title="订单详情"></SubHeader>
          <div className={Css['detail-main']}>
-           <div className={Css['order-num']}>订单编号：123456</div>
+           <div className={Css['order-num']}>订单编号：{this.state.orderNum}</div>
            <div className={Css['address-wrap']}>
               <div className={Css['address-info']}>
-                <span className={Css['name']}>username</span>
-                <span className={Css['cellphone']}>13684959262</span>
+                <span className={Css['name']}>{this.state.name}</span>
+                <span className={Css['cellphone']}>{this.state.cellphone}</span>
               </div>
-              <p className={Css['address']}>浙江省杭州市上城区街道详细地址</p>
+              <p className={Css['address']}>{this.state.province + this.state.city + this.state.area + this.state.address}</p>
            </div>
            <h2 className={Css['buy-title']}>购买的宝贝</h2>
-           <div className={Css['goods-list']}>
-             <div className={Css['image']}></div>
-             <div className={Css['info-wrap']}>
-               <div className={Css['title-wrap']}>
-                 <h4 className={Css['title']}>欧美尖头蝴蝶结拖鞋女夏外穿2018新款绸缎面细跟凉拖半拖鞋穆勒鞋</h4>
-                 <p className={Css['attr']}><span>x 1</span><span>颜色： 白色</span><span>尺码： 37</span></p>
-               </div>
-             </div>
-             <div className={Css['price']}>&yen;208</div>
-           </div>
+           {
+             this.state.goods.length>0 ?
+                 this.state.goods.map((item, index) =>{
+                   return (
+                       <div className={Css['goods-list']} key={index}>
+                         <div className={Css['image']}>
+                           <img src={item.image} alt={item.title}/>
+                         </div>
+                         <div className={Css['info-wrap']}>
+                           <div className={Css['title-wrap']}>
+                             <h4 className={Css['title']}>{item.title}</h4>
+
+                             <p className={Css['attr']}>
+                               <span>x {item.amount}</span>
+                               {
+                                 item.param.length> 0 ?
+                                     item.param.map((item2, index2) => {
+                                       return (
+                                           <span key={index2}>{item2.title}：{item2.attrid}</span>
+                                       )
+                                     })
+                                     :''
+                               }
+                               </p>
+                           </div>
+                           <div className={Css['price']}>&yen;{item.price}</div>
+                         </div>
+
+                       </div>
+                   )
+                 })
+                 :''
+           }
+
            <div className={Css['order-status']}>
              <span>支付状态</span>
              <span>待付款</span>
