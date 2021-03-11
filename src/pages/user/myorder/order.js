@@ -1,6 +1,7 @@
 import React from 'react';
 import config from "../../../assets/js/conf/config";
 import {request} from "../../../assets/js/libs/request";
+import { Modal} from 'antd-mobile';
 import { connect } from 'react-redux';
 import { Modal, Toast  } from 'antd-mobile';
 import Css from '../../../assets/css/user/myorder/order.css';
@@ -63,6 +64,7 @@ class OrderPage extends React.Component {
 
   }
   // 取消订单
+<<<<<<< HEAD
   cancelOrder(ordernum, index){
     Modal.alert('','确认要取消订单吗？',[
       { text: '取消', onPress: () => {}, style: 'default' },
@@ -90,6 +92,10 @@ class OrderPage extends React.Component {
   }
   pushPage(url){
     this.props.history.push(config.path+ url)
+=======
+  cancelOrder (){
+
+>>>>>>> a74ae21... order-mac
   }
 
   render() {
@@ -125,7 +131,11 @@ class OrderPage extends React.Component {
                       <span className={Css['total']}>实付金额：<strong className={Css['price']}>&yen;{item.total}</strong></span>
                       <div className={Css['status-wrap']}>
                         { item.status !== '2' ?
+<<<<<<< HEAD
                           <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? (e)=>{e.stopPropagation();this.cancelOrder(this, item.ordernum, index)} : item.status==='1' ?(e) =>{ e.stopPropagation(); this.firmOrder(this, item.ordernum, index) } : ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
+=======
+                          <div className={Css['btn-status']} onClick={this.cancelOrder.bind(this, item.ordernum, index)}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
+>>>>>>> a74ae21... order-mac
                           : ''
 
                         }
