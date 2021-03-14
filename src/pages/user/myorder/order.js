@@ -41,7 +41,10 @@ class OrderPage extends React.Component {
         });
 
       }
-    })
+    }).catch(error => {
+      console.log(error);
+    });
+
   }
   getScrollPage(){
     this.oUpRefresh = new UpRefresh({'curPage': this.curPage, 'maxPage':this.maxPage, 'offsetBottom': this.offsetBottom},curPage =>{
@@ -64,10 +67,11 @@ class OrderPage extends React.Component {
   }
   // 取消订单
   cancelOrder(ordernum, index){
+    console.log(ordernum);
     Modal.alert('','确认要取消订单吗？',[
       { text: '取消', onPress: () => {}, style: 'default' },
       { text: '确定', onPress:() =>{
-          let sUrl=config.baseUrl+'/api/user/myorder/clearorder?uid='+this.props.state.user.uid+'&ordernum='+ordernum+'&token='+config.token;
+          let sUrl=config.baseUrl+'/api/user/myorder/clearorder?uid='+this.props.state.user.uid+'&ordernum='+ ordernum +'&token='+config.token;
           request(sUrl).then(res=>{
             if(res.code === 200){
               let aOrder = this.state.aOrder;
@@ -113,7 +117,8 @@ class OrderPage extends React.Component {
                       item.goods.length > 0 ?
                         item.goods.map((item2, index2) => {
                           return (
-                          <div className={Css['item-wrap']} key={index2}>
+                          <div className={Css['list-wrap']} key={index2}>
+                          <div className={Css['item-wrap']}>
                             <div className={Css['image']}>
                               <img src={require("../../../assets/images/common/lazyImg.jpg")} data-echo={item2.image} alt={item2.title}/>
                             </div>
@@ -121,6 +126,7 @@ class OrderPage extends React.Component {
                               <h4 className={Css['title']}>{item2.title} </h4>
                               <span className={Css['amount']}>x {item2.amount}</span>
                             </div>
+                          </div>
                           </div>
                           )
                         })
@@ -130,7 +136,7 @@ class OrderPage extends React.Component {
                       <span className={Css['total']}>实付金额：<strong className={Css['price']}>&yen;{item.total}</strong></span>
                       <div className={Css['status-wrap']}>
                         { item.status !== '2' ?
-                          <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? (e)=>{e.stopPropagation();this.cancelOrder(this, item.ordernum, index)} : item.status==='1' ?(e) =>{ e.stopPropagation(); this.firmOrder(this, item.ordernum, index) } : ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
+                          <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? (e)=>{e.stopPropagation();this.cancelOrder(item.ordernum, index)} : item.status==='1' ?(e) =>{ e.stopPropagation(); this.firmOrder(item.ordernum, index) } : ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
                             : <div className={ Css['btn-status']}>评价</div>
                         }
                       </div>

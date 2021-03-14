@@ -1,0 +1,67 @@
+.add-page{
+    height: 100vh;
+    padding-top: 1rem;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+.review-item{
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #efefef;
+    padding: 0 0.3rem;
+}
+.review-item .title-con{
+    width: 1.2rem;
+    font-size: 0.28rem;
+}
+.review-item .start-con{
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+.review-item .start{
+    width: 0.4rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    text-align: center;
+    font-size: 0.4rem;
+    color: #999;
+    margin-right: 0.2rem;
+    font-family: iconfont;
+}
+.review-item .start::before{
+    content: '\e664';
+}
+.review-item .start.active{
+    color: #fdb709;
+}
+.content-wrap{
+    height: 4rem;
+    padding: 0 0.3rem;
+    margin-top: 0.2rem;
+}
+.content-wrap textarea{
+    width: 100%;
+    height: 100%;
+    font-size: 0.28rem;
+    resize: none;
+    border: none;
+    outline: none;
+}
+.submit-con{
+    margin-top: 0.3rem;
+    padding: 0 0.3rem;
+}
+.btn-submit{
+    width: 100%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    background-color: #e51b19;
+    font-size: 0.28rem;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+}

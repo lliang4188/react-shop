@@ -58,7 +58,10 @@ class ReviewPage extends React.Component {
       })
     });
   }
-
+  pushPage(url) {
+    console.log(url);
+    this.props.history.push(config.path + url);
+  }
 
   render() {
     return (
@@ -67,7 +70,7 @@ class ReviewPage extends React.Component {
             this.state.aOrder.length > 0 ?
               this.state.aOrder.map((item, index)=>{
                 return (
-                    <div className={Css['order-list']} key={index}>
+                    <div className={Css['order-list']} key={index} >
                       <div className={Css['number-wrap']}>
                         <span className={Css['number']}>订单编号：{item.ordernum}</span>
                         <span className={Css['status']}>{item.status === '0' ? '待付款' : item.status === '1' ? '确认收货': '' }</span>
@@ -76,8 +79,8 @@ class ReviewPage extends React.Component {
                         item.goods.length> 0 ?
                             item.goods.map((item2, index2)=>{
                               return (
-                                  <React.Fragment key={index2}>
-                                    <div className={Css['item-wrap']}>
+                                  <div className={Css['list-wrap']} onClick={this.pushPage.bind(this,'goods/details/item?gid='+item2.gid)} key={index2}>
+                                    <div className={Css['item-wrap']} >
                                       <div className={Css['image']}>
                                         <img src={require("../../../assets/images/common/lazyImg.jpg")} data-echo={item2.image} alt={item2.title}/>
                                       </div>
@@ -88,10 +91,10 @@ class ReviewPage extends React.Component {
                                     </div>
                                     <div className={Css['total-wrap'] + ' ' + Css['review-wrap']}>
                                       <div className={Css['status-wrap']}>
-                                        <div className={Css['btn-status']}>{item2.isreview === '0' ? '评价' : '追加评价'}</div>
+                                        <div className={Css['btn-status']} onClick={(e)=>{e.stopPropagation(); this.pushPage('order/add_review?gid='+item2.gid+'&ordernum='+ item.ordernum)}}>{item2.isreview === '0' ? '评价' : '追加评价'}</div>
                                       </div>
                                     </div>
-                                  </React.Fragment>
+                                  </div>
 
                               )
                             })

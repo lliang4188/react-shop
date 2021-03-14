@@ -49,7 +49,7 @@ class UserIndex extends React.Component {
   // 获取会员信息
   getUserInfo(){
     if (this.props.state.user.isLogin===true){
-      let sUrl = config.baseUrl +'/api/user/myinfo/userinfo/uid='+ this.props.state.user.uid +'?token=' + config.token;
+      let sUrl = config.baseUrl +'/api/user/myinfo/userinfo/uid/'+ this.props.state.user.uid +'?token=' + config.token;
       request(sUrl).then(res=>{
         if( res.code === 200){
           this.setState({

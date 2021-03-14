@@ -25,6 +25,7 @@ const AddressMod = asyncComponent(() => import('./pages/home/address/mod'));
 const BalanceEnd = asyncComponent(() => import('./pages/home/balance/end'));
 const ProfileIndex = asyncComponent(() => import('./pages/user/profile/index'));
 const MyOrder = asyncComponent(() => import('./pages/user/myorder/index'));
+const AddReview = asyncComponent(() => import('./pages/user/myorder/add_review'));
 const OrderDetail = asyncComponent(() => import('./pages/user/myorder/detail'));
 const Transfer = asyncComponent(() => import('./pages/transfer'));
 
@@ -51,7 +52,7 @@ export default class  RouterComponent extends React.Component {
                     <AuthRoute path={config.path + "profile/index"} component={ProfileIndex} ></AuthRoute>
                     <AuthRoute path={config.path + "myorder"} component={MyOrder} ></AuthRoute>
                     <AuthRoute path={config.path + "order/detail"} component={OrderDetail} ></AuthRoute>
-
+                    <AuthRoute path={config.path + "order/add_review"} component={AddReview} ></AuthRoute>
                     <AuthRoute path={config.path + "transfer"} component={Transfer} ></AuthRoute>
                     <Redirect to={config.path + "home/index"}></Redirect>
                 </Switch>
