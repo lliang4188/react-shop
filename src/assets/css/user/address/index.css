@@ -1,0 +1,54 @@
+.address-page{
+    height: 100vh;
+    min-height: 100vh;
+    padding-top: 1rem;
+    padding-bottom: 1.3rem;
+    background-color: #fff;
+}
+.address-list{
+    border-bottom: 1px solid #efefef;
+    position: relative;
+}
+.address-list::after{
+    font-family: iconfont;
+    content: '\e606';
+    font-size: 0.24rem;
+    color: #999;
+    position: absolute;
+    right: 0.3rem;
+    top:50%;
+    transform: translateY(-50%);
+}
+.address-list .text-wrap{
+    padding:0.2rem 0.8rem 0.2rem 0.3rem;
+    font-size: 0.28rem;
+}
+.address-list .default{
+    color: #fdb709;
+    margin-right: 0.1rem;
+}
+.address-list .text-wrap .name{
+    margin-right: 0.2rem;
+}
+.address-list .address{
+    margin-top: 0.1rem;
+}
+
+.add-bottom-wrap{
+    position: fixed;
+    width: 100%;
+    padding: 0 0.3rem;
+    box-sizing: border-box;
+    left: 0;
+    bottom: 0.3rem;
+}
+.btn-add{
+    width: 100%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    background-color: #eb1625;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.28rem;
+    color: #fff;
+}

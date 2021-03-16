@@ -24,6 +24,7 @@ const AddressAdd = asyncComponent(() => import('./pages/home/address/add'));
 const AddressMod = asyncComponent(() => import('./pages/home/address/mod'));
 const BalanceEnd = asyncComponent(() => import('./pages/home/balance/end'));
 const ProfileIndex = asyncComponent(() => import('./pages/user/profile/index'));
+const UserAddressIndex = asyncComponent(() => import('./pages/user/address/index'));
 const MyOrder = asyncComponent(() => import('./pages/user/myorder/index'));
 const AddReview = asyncComponent(() => import('./pages/user/myorder/add_review'));
 const OrderDetail = asyncComponent(() => import('./pages/user/myorder/detail'));
@@ -50,6 +51,7 @@ export default class  RouterComponent extends React.Component {
                     <AuthRoute path={config.path + "address/mod"} component={AddressMod} ></AuthRoute>
                     <AuthRoute path={config.path + "balance/end"} component={BalanceEnd} ></AuthRoute>
                     <AuthRoute path={config.path + "profile/index"} component={ProfileIndex} ></AuthRoute>
+                    <AuthRoute path={config.path + "use/address/index"} component={UserAddressIndex} ></AuthRoute>
                     <AuthRoute path={config.path + "myorder"} component={MyOrder} ></AuthRoute>
                     <AuthRoute path={config.path + "order/detail"} component={OrderDetail} ></AuthRoute>
                     <AuthRoute path={config.path + "order/add_review"} component={AddReview} ></AuthRoute>

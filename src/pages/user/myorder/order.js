@@ -137,7 +137,7 @@ class OrderPage extends React.Component {
                       <div className={Css['status-wrap']}>
                         { item.status !== '2' ?
                           <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? (e)=>{e.stopPropagation();this.cancelOrder(item.ordernum, index)} : item.status==='1' ?(e) =>{ e.stopPropagation(); this.firmOrder(item.ordernum, index) } : ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
-                            : <div className={ Css['btn-status']}>评价</div>
+                            : <div className={ Css['btn-status'] + ' ' + Css['btn-gray'] }>已收货</div>
                         }
                       </div>
                     </div>

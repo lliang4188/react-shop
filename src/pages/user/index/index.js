@@ -87,7 +87,7 @@ class UserIndex extends React.Component {
           </div>
           <div className={Css['menu-list-wrap']}>
             <div className={Css['menu-item']} onClick={this.pushPage.bind(this,'profile/index')}>个人资料</div>
-            <div className={Css['menu-item']}>收货地址</div>
+            <div className={Css['menu-item']} onClick={this.pushPage.bind(this, 'use/address/index')}>收货地址</div>
             <div className={Css['menu-item']}>绑定手机</div>
             <div className={Css['menu-item']}>修改密码</div>
             <div className={Css['menu-item']}>我的收藏</div>
