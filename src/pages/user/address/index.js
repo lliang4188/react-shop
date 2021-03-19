@@ -38,7 +38,7 @@ class UserAddressIndex extends React.Component {
             this.state.address.length > 0 ?
                 this.state.address.map((item,index) => {
                   return (
-                      <div className={Css['address-list']} key={index} onClick={this.pushPage.bind(this, 'address/mod?aid='+item.aid)}>
+                      <div className={Css['address-list']} key={index} onClick={this.pushPage.bind(this, 'use/address/mod?aid='+item.aid)}>
                         <div className={Css['text-wrap']}>
                           <p>
                             {
