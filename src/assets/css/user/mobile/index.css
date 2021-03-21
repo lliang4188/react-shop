@@ -1,0 +1,97 @@
+.mobile-page {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding-top: 1rem;
+    background-color: #fff;
+}
+.mobile-main{
+    overflow: hidden;
+}
+.mobile-main .tip{
+    height: 0.8rem;
+    display: flex;
+    align-items: center;
+    background-color: #f3f5c4;
+    color: #ac7700;
+    font-size: 0.28rem;
+    padding: 0 0.3rem;
+}
+.mobile-main .tip::before{
+    font-family: iconfont;
+    font-size: 0.4rem;
+    margin-right: 0.1rem;
+    content: '\e763';
+}
+.mobile-main .input-con{
+    padding: 0.5rem 0.3rem 0;
+}
+.mobile-main .input-wrap{
+    height: 0.8rem;
+    line-height: 0.8rem;
+    border: 1px solid #efefef;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+.mobile-main .input-wrap input{
+    flex: 1;
+    width: 100%;
+    padding: 0 0.2rem;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.mobile-main .input-wrap:last-child{
+    margin-top: 0.2rem;
+}
+.mobile-main .btn-code{
+    width: 1.8rem;
+    text-align: center;
+    font-size: 0.28rem;
+    border-left: 1px solid #efefef;
+
+}
+.mobile-main .success{
+    color: #eb1625;
+}
+.mobile-main .btn-con{
+    margin-top: 0.4rem;
+    padding: 0 0.3rem;
+}
+.mobile-main .btn-save{
+    height: .8rem;
+    background-color: #e42321;
+    font-size: .28rem;
+    color: #fff;
+    text-align: center;
+    line-height: .8rem;
+    border-radius: 4px;
+}
+.password-item{
+    display: flex;
+    align-items: center;
+    border: 1px solid #efefef;
+    border-radius: 2px;
+    height: 0.84rem;
+    margin-top: 0.3rem;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+.password-input{
+    flex: 1;
+    overflow: hidden;
+    padding: 0 0.2rem;
+    line-height: 0.8rem;
+}
+.password-item .eyes{
+    width: 1.2rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    text-align: center;
+    font-size: 0.48rem;
+    font-family: iconfont;
+    color: #999;
+}
+.password-item .eyes::before{
+    content: '\e60f';
+}

@@ -7,7 +7,7 @@
     width: 100%;
     box-sizing: border-box;
     z-index: 10;
-    padding: 0 0.3rem;
+    padding: 0 0.3rem 0 0.15rem;
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -88,9 +88,9 @@ class UserIndex extends React.Component {
           <div className={Css['menu-list-wrap']}>
             <div className={Css['menu-item']} onClick={this.pushPage.bind(this,'profile/index')}>个人资料</div>
             <div className={Css['menu-item']} onClick={this.pushPage.bind(this, 'use/address/index')}>收货地址</div>
-            <div className={Css['menu-item']}>绑定手机</div>
-            <div className={Css['menu-item']}>修改密码</div>
-            <div className={Css['menu-item']}>我的收藏</div>
+            <div className={Css['menu-item']} onClick={this.pushPage.bind(this, 'use/mobile/index')}>绑定手机</div>
+            <div className={Css['menu-item']} onClick={this.pushPage.bind(this, 'use/modpwd/index')}>修改密码</div>
+            <div className={Css['menu-item']} onClick={this.pushPage.bind(this, 'use/myfav/index')}>我的收藏</div>
             <div className={Css['btn']} onClick={this.outLogin.bind(this)}>{this.props.state.user.isLogin === true?'安全退出':'登录/注册'}</div>
           </div>
         </div>

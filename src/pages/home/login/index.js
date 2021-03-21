@@ -1,6 +1,8 @@
 import React from 'react';
 import config from "../../../assets/js/conf/config";
 import {request} from "../../../assets/js/libs/request";
+import {setScrollTop} from '../../../assets/js/utils/util';
+
 import {connect} from 'react-redux';
 import action from '../../../actions';
 import SubHeader from "../../../components/header/subheader";
@@ -19,6 +21,7 @@ class LoginIndex extends React.Component {
   }
 
   componentDidMount() {
+    setScrollTop();
   }
 
   componentWillUnmount() {

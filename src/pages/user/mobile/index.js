@@ -1,27 +1,26 @@
 import React from 'react';
 import config from "../../../assets/js/conf/config";
-import {request} from "../../../assets/js/libs/request";
+import { connect } from 'react-redux';
+// import action from '../../../actions';
 import SubHeader from "../../../components/header/subheader";
 import { Toast } from 'antd-mobile';
-import Css from '../../../assets/css/home/reg/index.css';
-export default class RegIndex extends React.Component {
-  constructor() {
-    super();
-    this.state= {
-      isChecked: false,
+import Css from '../../../assets/css/user/mobile/index.css';
+import {request} from '../../../assets/js/libs/request';
+class MobileIndex extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       sCellphone: '',
       bCodeSuccess: false,
-      sCodeText: '获取短信验证码',
-      sCode: '',
-      sPassword:''
-    };
+      sCodeText: '获取验证码',
+      sCode: ''
+    }
     this.timer = null;
     this.bSendCode = true;
     this.bSubmit = true;
   }
   componentDidMount() {
   }
-
   componentWillUnmount() {
     clearInterval(this.timer);
     this.setState = (state,callback) => {
@@ -61,7 +60,7 @@ export default class RegIndex extends React.Component {
         }else {
           clearInterval(this.timer);
           this.bSendCode = true;
-          this.setState({sCodeText:'获取短信验证码', bCodeSuccess:true});
+          this.setState({sCodeText:'获取验证码', bCodeSuccess:true});
         }
       }, 1000)
     }
@@ -87,16 +86,16 @@ export default class RegIndex extends React.Component {
       Toast.info('请输入短信验证码',2);
       return false;
     }
-    if(this.state.sPassword.match(/^\s*$/)) {
-      Toast.info('请输入密码',2);
-      return false;
-    }
     if (this.bSubmit){
       this.bSubmit = false;
-      let sUrl = config.baseUrl + 'api/home/user/reg?token='+config.token;
-      request(sUrl, 'post',{vcode:this.state.sCode, cellphone:this.state.sCellphone, password:this.state.sPassword}).then(res=>{
+      let sUrl = config.baseUrl + '/api/user/myinfo/updatecellphone?token='+config.token;
+      request(sUrl, 'post',{vcode:this.state.sCode, cellphone:this.state.sCellphone, uid:this.props.state.user.uid}).then(res=>{
         if(res.code===200){
-          this.props.history.goBack();
+          Toast.info('绑定成功！', 2,()=>{
+            this.props.history.goBack();
+          });
+        }else {
+          Toast.info(res.data,2);
         }
       })
     }
@@ -111,31 +110,29 @@ export default class RegIndex extends React.Component {
   }
   render() {
     return (
-        <div className={Css['reg-page']}>
-          <SubHeader title="会员注册"></SubHeader>
-          <div className={Css['main']}>
-            <div className={Css['main-list']}>
-              <div className={Css['input-wrap']}>
-                <input type="tel" placeholder="请输入手机号" onChange={(e) => {this.checkCellphone(e)}}/>
-              </div>
-              <div className={this.state.bCodeSuccess ? Css['btn-code'] + ' ' + Css['success'] : Css['btn-code']} onClick={this.getCode.bind(this)}>{this.state.sCodeText}</div>
-            </div>
-            <div className={Css['main-list']}>
-              <div className={Css['input-wrap']}>
-                <input type="text" placeholder="请输入短信验证码" onChange={(e)=>{this.setState({sCode:e.target.value})}}/>
-              </div>
-            </div>
-            <div className={Css['password-item']}>
-              <div className={Css['password-input']}>
-                <form>
-                <input type={this.state.isChecked ? 'text': 'password'} placeholder="请输入密码" onChange={(e)=>{this.setState({sPassword:e.target.value})}} autoComplete="off"/>
-                </form>
-              </div>
-              <div className={this.state.isChecked ? Css['eyes']+ ' ' + Css['open']: Css['eyes']} onClick={()=>{this.setState({isChecked:!this.state.isChecked})}}></div>
-            </div>
-            <div className={Css['btn-sure']} onClick={this.submitData.bind(this)}>注册</div>
-          </div>
+        <div className={Css['mobile-page']}>
+         <SubHeader title="绑定手机号"></SubHeader>
+         <div className={Css['mobile-main']}>
+           <div className={Css['tip']}>新手机号验证后，即可绑定成功！</div>
+           <div className={Css['input-con']}>
+             <div className={Css['input-wrap']}>
+               <input type="tel" placeholder="绑定手机号" onChange={(e) => {this.checkCellphone(e)}}/>
+             </div>
+             <div className={Css['input-wrap']}>
+               <input type="text" placeholder="请输入短信验证码" onChange={(e)=>{this.setState({sCode:e.target.value})}}/>
+               <div className={this.state.bCodeSuccess ? Css['btn-code'] + ' ' + Css['success'] : Css['btn-code']} onClick={this.getCode.bind(this)}>{this.state.sCodeText}</div>
+             </div>
+           </div>
+           <div className={Css['btn-con']}>
+             <div className={Css['btn-save']} onClick={this.submitData.bind(this)}>立即绑定</div>
+           </div>
+         </div>
         </div>
     )
   }
 }
+export default connect((state)=>{
+  return {
+    state:state
+  }
+})(MobileIndex);
