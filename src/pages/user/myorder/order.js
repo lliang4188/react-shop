@@ -6,6 +6,7 @@ import { Modal, Toast  } from 'antd-mobile';
 import Css from '../../../assets/css/user/myorder/order.css';
 import {lazyImg, localParam, setScrollTop} from "../../../assets/js/utils/util";
 import UpRefresh from '../../../assets/js/libs/uprefresh';
+import action from "../../../actions";
 
 
 class OrderPage extends React.Component {
@@ -91,10 +92,14 @@ class OrderPage extends React.Component {
     request(sUrl).then(res =>{
       if (res.code === 200){
        let aOrder = this.state.aOrder;
-        aOrder[index].status = 2;
+        aOrder[index].status = '2';
         this.setState({aOrder:aOrder});
       }
-      Toast.info(res.data, 2);
+      Toast.info(res.data, 2,()=>{
+        this.props.dispatch(action.cart.clearCart());
+      });
+    }).catch(error =>{
+      console.log(error);
     })
   }
   pushPage(url) {
@@ -142,6 +147,7 @@ class OrderPage extends React.Component {
                           </div>
 
                             : <div className={ Css['btn-status'] + ' ' + Css['btn-gray'] }>已收货</div>
+
                         }
                         {
                           item.status === '0' ?

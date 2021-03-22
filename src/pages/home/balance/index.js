@@ -87,7 +87,7 @@ class BalanceIndex extends React.Component {
           }
           request(sUrl, 'post', jData).then(res=>{
              if (res.code===200){
-               this.props.history.push(config.path+ 'balance/end')
+               this.props.history.replace(config.path+ 'balance/end');
              }
           })
         }
