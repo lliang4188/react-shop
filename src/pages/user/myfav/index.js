@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 // import action from '../../../actions';
 import SubHeader from "../../../components/header/subheader";
 import {lazyImg} from '../../../assets/js/utils/util';
-import { Modal, Toast } from 'antd-mobile';
+import { Modal } from 'antd-mobile';
 import UpRefresh from '../../../assets/js/libs/uprefresh';
 import Css from '../../../assets/css/user/myfav/index.css';
 import {request} from '../../../assets/js/libs/request';
-import action from "../../../actions";
 class MyFav extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +31,6 @@ class MyFav extends React.Component {
   getData(){
     let sUrl = config.baseUrl+ '/api/user/fav/index?uid='+ this.props.state.user.uid +'&token='+ config.token +'&page=1';
     request(sUrl).then(res =>{
-      console.log(res);
       if (res.code===200){
         this.setState({favData: res.data},()=>{
           lazyImg();
@@ -76,17 +74,20 @@ class MyFav extends React.Component {
           request(sUrl, 'post', {uid: this.props.state.user.uid, fid:fid}).then(res => {
             if (res.code === 200){
               let favData = this.state.favData;
-                Toast.info('删除成功',1,()=>{
-                    favData.splice(index, 1);
-                    this.setState({favData:favData});
-                });
+              favData.splice(index, 1);
+              this.setState({favData:favData},()=>{
+                lazyImg();
+              });
             }
           })
 
         }}
     ]);
   }
-
+  // 页面跳转
+  pushPage(url){
+    this.props.history.push(config.path+ url);
+  }
 
   render() {
     return (
@@ -94,23 +95,23 @@ class MyFav extends React.Component {
          <SubHeader title="我的收藏"></SubHeader>
          <div className={Css['fav-list']}>
            {
-             this.state.favData.length > 0 ?
+             this.state.favData !== null ?
                this.state.favData.map((item, index) =>{
                  return (
-                   <div className={Css['list-item']} key={index}>
+                   <div className={Css['list-item']} key={index} onClick={this.pushPage.bind(this, 'goods/details/item?gid='+ item.gid)}>
                      <div className={Css['image']}>
                        <img src={require("../../../assets/images/common/lazyImg.jpg")} data-echo={item.image} alt={item.title}/>
                      </div>
                      <div className={Css['title']}>{item.title}</div>
                      <div className={Css['price']}>&yen;{item.price}</div>
                      <div className={Css['btn-wrap']}>
-                       <div className={Css['btn']}>购买</div>
-                       <div className={Css['btn']} onClick={this.delFav.bind(this, index,item.fid)}>删除</div>
+                       <div className={Css['btn']} onClick={(e)=>{e.stopPropagation(); this.pushPage('goods/details/item?gid='+ item.gid)}}>购买</div>
+                       <div className={Css['btn']} onClick={(e)=>{ e.stopPropagation(); this.delFav(index,item.fid)}}>删除</div>
                      </div>
                    </div>
                  )
                })
-               : ''
+                 : ''
            }
 
          </div>

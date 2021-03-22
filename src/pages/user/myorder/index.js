@@ -7,7 +7,7 @@ import asyncComponent from "../../../components/async/AsyncComponent";
 import SubHeader from "../../../components/header/subheader";
 import Css from '../../../assets/css/user/myorder/index.css';
 import NavsComponent from '../../../components/navs/navs';
-import {localParam, safeAuth} from "../../../assets/js/utils/util";
+import {localParam, safeAuth, setScrollTop} from "../../../assets/js/utils/util";
 
 const OrderPage = asyncComponent(()=>import('./order'));
 const ReviewPage = asyncComponent(()=>import('./review'));
@@ -22,6 +22,7 @@ class MyOrder extends React.Component {
     }
   }
   componentDidMount() {
+    setScrollTop();
     this.getTile();
   }
   UNSAFE_componentWillReceiveProps(newProps) {

@@ -3,7 +3,7 @@ import config from "../../../assets/js/conf/config";
 import {request} from "../../../assets/js/libs/request";
 import { connect } from 'react-redux';
 import Css from '../../../assets/css/user/myorder/order.css';
-import {lazyImg} from "../../../assets/js/utils/util";
+import {lazyImg, setScrollTop} from "../../../assets/js/utils/util";
 import UpRefresh from '../../../assets/js/libs/uprefresh';
 
 class ReviewPage extends React.Component {
@@ -18,6 +18,7 @@ class ReviewPage extends React.Component {
     this.offsetBottom = 100;
   }
   componentDidMount() {
+    setScrollTop();
     this.getData();
   }
 

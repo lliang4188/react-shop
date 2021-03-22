@@ -6,6 +6,7 @@ import SubHeader from "../../../components/header/subheader";
 import { Modal} from 'antd-mobile';
 import Css from '../../../assets/css/user/my/index.css';
 import {request} from '../../../assets/js/libs/request';
+import {setScrollTop} from "../../../assets/js/utils/util";
 class UserIndex extends React.Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,7 @@ class UserIndex extends React.Component {
     }
   }
   componentDidMount() {
+    setScrollTop();
     this.getUserInfo();
   }
 

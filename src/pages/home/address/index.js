@@ -5,7 +5,7 @@ import SubHeader from "../../../components/header/subheader";
 import {request} from '../../../assets/js/libs/request';
 import { Modal} from 'antd-mobile';
 import Css from  '../../../assets/css/home/address/index.css';
-import { safeAuth } from '../../../assets/js/utils/util';
+import {safeAuth, setScrollTop} from '../../../assets/js/utils/util';
 
 class AddressIndex extends React.Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class AddressIndex extends React.Component {
 
   }
   componentDidMount() {
+    setScrollTop();
     this.getAddress();
   }
 

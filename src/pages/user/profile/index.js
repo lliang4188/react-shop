@@ -6,6 +6,7 @@ import SubHeader from "../../../components/header/subheader";
 import { ActionSheet, Toast } from 'antd-mobile';
 import Css from '../../../assets/css/user/profile/index.css';
 import {request} from '../../../assets/js/libs/request';
+import {setScrollTop} from "../../../assets/js/utils/util";
 class ProfileIndex extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ class ProfileIndex extends React.Component {
     }
   }
   componentDidMount() {
+    setScrollTop();
     this.getUserInfo();
   }
   showActionSheet = () => {

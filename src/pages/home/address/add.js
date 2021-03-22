@@ -5,7 +5,7 @@ import SubHeader from "../../../components/header/subheader";
 import {request} from '../../../assets/js/libs/request';
 import { Picker, Toast } from 'antd-mobile';
 import {province} from '../../../assets/data/province';
-import { safeAuth } from '../../../assets/js/utils/util';
+import {safeAuth, setScrollTop} from '../../../assets/js/utils/util';
 import Css from '../../../assets/css/home/address/add.css';
 class AddressAdd extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class AddressAdd extends React.Component {
    this.bSubmit = true;
   }
   componentDidMount() {
-
+    setScrollTop();
   }
   componentWillUnmount(){
     this.setState=(state,callback)=>{

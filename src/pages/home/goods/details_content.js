@@ -1,7 +1,7 @@
 import React from 'react';
 import Css from '../../../assets/css/home/goods/details_item.css';
 import {request} from "../../../assets/js/libs/request";
-import {localParam} from '../../../assets/js/utils/util';
+import {localParam, setScrollTop} from '../../../assets/js/utils/util';
 import config from "../../../assets/js/conf/config";
 export default class DetailsContent extends React.Component {
   constructor(props) {
@@ -21,6 +21,7 @@ export default class DetailsContent extends React.Component {
   }
 
   componentWillUnmount() {
+    setScrollTop();
     this.setState = (state,callback) => {
       return;
     }

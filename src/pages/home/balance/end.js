@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Css from '../../../assets/css/home/balance/index.css';
-import { safeAuth } from '../../../assets/js/utils/util';
+import {safeAuth, setScrollTop} from '../../../assets/js/utils/util';
 import config from "../../../assets/js/conf/config";
 import {request} from "../../../assets/js/libs/request";
 import SubHeader from "../../../components/header/subheader";
@@ -20,6 +20,7 @@ class BalanceEnd extends React.Component {
   }
 
   componentDidMount() {
+    setScrollTop();
     this.getOrderNum();
   }
   // 获取订单编号

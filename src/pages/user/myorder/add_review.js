@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {Toast} from  'antd-mobile';
 import SubHeader from "../../../components/header/subheader";
 import Css from '../../../assets/css/user/myorder/add_review.css';
-import {localParam,safeAuth} from "../../../assets/js/utils/util";
+import {localParam, safeAuth, setScrollTop} from "../../../assets/js/utils/util";
 
 class AddReview extends React.Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class AddReview extends React.Component {
     this.isSubmit =  true;
   }
   componentDidMount() {
+    setScrollTop();
     this.getServices();
   }
 

@@ -5,7 +5,7 @@ import SubHeader from "../../../components/header/subheader";
 import {request} from '../../../assets/js/libs/request';
 import { Picker, Toast } from 'antd-mobile';
 import {province} from '../../../assets/data/province';
-import { safeAuth, localParam } from '../../../assets/js/utils/util';
+import {safeAuth, localParam, setScrollTop} from '../../../assets/js/utils/util';
 import Css from '../../../assets/css/home/address/add.css';
 class AddressMod extends React.Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class AddressMod extends React.Component {
    this.aid = localParam(this.props.location.search).search.aid;
   }
   componentDidMount() {
+    setScrollTop();
     this.getAddress();
   }
   componentWillUnmount(){

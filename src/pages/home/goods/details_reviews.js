@@ -1,7 +1,7 @@
 import React from 'react';
 import Css from '../../../assets/css/home/goods/details_reviews.css';
 import {request} from "../../../assets/js/libs/request";
-import {lazyImg,localParam} from '../../../assets/js/utils/util';
+import {lazyImg, localParam, setScrollTop} from '../../../assets/js/utils/util';
 import config from "../../../assets/js/conf/config";
 import UpRefresh from "../../../assets/js/libs/uprefresh";
 export default class DetailsReviews extends React.Component {
@@ -19,6 +19,7 @@ export default class DetailsReviews extends React.Component {
   }
 
   componentDidMount() {
+    setScrollTop();
     this.getReviews();
   }
 

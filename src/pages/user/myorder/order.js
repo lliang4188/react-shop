@@ -4,7 +4,7 @@ import {request} from "../../../assets/js/libs/request";
 import { connect } from 'react-redux';
 import { Modal, Toast  } from 'antd-mobile';
 import Css from '../../../assets/css/user/myorder/order.css';
-import {lazyImg, localParam} from "../../../assets/js/utils/util";
+import {lazyImg, localParam, setScrollTop} from "../../../assets/js/utils/util";
 import UpRefresh from '../../../assets/js/libs/uprefresh';
 
 
@@ -22,6 +22,7 @@ class OrderPage extends React.Component {
     this.offsetBottom = 100;
   }
   componentDidMount() {
+    setScrollTop();
     this.getData();
   }
   componentWillUnmount() {
@@ -135,9 +136,17 @@ class OrderPage extends React.Component {
                     <div className={Css['total-wrap']}>
                       <span className={Css['total']}>实付金额：<strong className={Css['price']}>&yen;{item.total}</strong></span>
                       <div className={Css['status-wrap']}>
+
                         { item.status !== '2' ?
-                          <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? (e)=>{e.stopPropagation();this.cancelOrder(item.ordernum, index)} : item.status==='1' ?(e) =>{ e.stopPropagation(); this.firmOrder(item.ordernum, index) } : ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }</div>
+                          <div className={item.status=== '0' ? Css['btn-status'] + ' ' + Css['btn-gray'] : Css['btn-status']} onClick={item.status==='0' ? (e)=>{e.stopPropagation();this.cancelOrder(item.ordernum, index)} : item.status==='1' ?(e) =>{ e.stopPropagation(); this.firmOrder(item.ordernum, index) } : ()=>{}}>{ item.status === '0' ? '取消订单' : item.status === '1' ? '确认收货' : ''  }
+                          </div>
+
                             : <div className={ Css['btn-status'] + ' ' + Css['btn-gray'] }>已收货</div>
+                        }
+                        {
+                          item.status === '0' ?
+                              <div  className={Css['btn-status']} onClick= {(e)=>{e.stopPropagation(); this.firmOrder(item.ordernum, index)}}>去付款</div>
+                              : ''
                         }
                       </div>
                     </div>

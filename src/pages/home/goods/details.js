@@ -3,7 +3,7 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import asyncComponent from "../../../components/async/AsyncComponent";
 import Css from '../../../assets/css/home/goods/details.css';
-import {localParam} from '../../../assets/js/utils/util';
+import {localParam, setScrollTop} from '../../../assets/js/utils/util';
 import config from "../../../assets/js/conf/config";
 
 const DetailsItem = asyncComponent(()=> import('./details_item'));
@@ -23,6 +23,7 @@ class GoodsDetails extends React.Component {
     }
   }
   componentDidMount() {
+    setScrollTop();
     this.setTypeStyle(this.props);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {

@@ -5,7 +5,7 @@ import {request} from "../../../assets/js/libs/request";
 import Css from '../../../assets/css/home/goods/classify.css';
 import config from '../../../assets/js/conf/config';
 import IScroll from '../../../assets/js/libs/iscroll';
-import {localParam} from '../../../assets/js/utils/util';
+import {localParam, isSystem, setScrollTop} from '../../../assets/js/utils/util';
 import SearchComponent from "../../../components/search/search";
 const GoodsItems = asyncComponent(()=>import('./items'));
 export default class HomeComponent extends React.Component {
@@ -20,6 +20,7 @@ export default class HomeComponent extends React.Component {
     this.cid = props.location.search ? localParam(props.location.search).search.cid : '492';
   }
   componentDidMount() {
+    setScrollTop();
     this.getClassifyData();
   }
   UNSAFE_componentWillReceiveProps() {
@@ -126,6 +127,9 @@ export default class HomeComponent extends React.Component {
                   )
                   :
                   ''
+                }
+                {
+                  isSystem() === 1 ? <div style={{height:'1.6rem'}}></div> : <div style={{height:'0.8rem'}}></div>
                 }
               </div>
 

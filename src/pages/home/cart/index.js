@@ -4,6 +4,7 @@ import config from "../../../assets/js/conf/config";
 import actions from '../../../actions';
 import SubHeader from "../../../components/header/subheader";
 import Css from "../../../assets/css/home/cart/index.css";
+import {setScrollTop} from "../../../assets/js/utils/util";
 
 
 class CartIndex extends React.Component {
@@ -14,6 +15,7 @@ class CartIndex extends React.Component {
     }
   }
   componentDidMount() {
+    setScrollTop();
     this.isAllChecked();
   }
   // 删除商品

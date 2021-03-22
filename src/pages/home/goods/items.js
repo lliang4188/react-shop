@@ -1,7 +1,7 @@
 import React from 'react';
 import Css from '../../../assets/css/home/goods/items.css';
 import {request} from "../../../assets/js/libs/request";
-import {lazyImg,localParam} from '../../../assets/js/utils/util';
+import {lazyImg,localParam, isSystem} from '../../../assets/js/utils/util';
 import config from "../../../assets/js/conf/config";
 import IScroll from '../../../assets/js/libs/iscroll';
 export default class HomeComponent extends React.Component {
@@ -96,6 +96,9 @@ export default class HomeComponent extends React.Component {
                   )
                 })
                 : <div class="no-data">没有相关数据~~</div>
+            }
+            {
+              isSystem() === 1 ? <div style={{height:'1.8rem'}}></div> : <div style={{height:'0.5rem'}}></div>
             }
 
           </div>
